@@ -6,7 +6,7 @@ import authRoutes from './src/routes/authRoutes.js';
 import productRoutes from './src/routes/productRoutes.js';
 import cartRoutes from './src/routes/cartRoutes.js';
 import orderRoutes from './src/routes/orderRoutes.js';
-import {  errorHandler } from './src/middlewares/errorMiddleware.js';
+import { errorHandler } from './src/middlewares/errorMiddleware.js';
 
 dotenv.config();
 
@@ -16,7 +16,11 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'https://maryamemaddd.github.io',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/products', productRoutes);
