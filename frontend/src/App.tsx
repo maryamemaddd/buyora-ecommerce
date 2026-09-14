@@ -33,7 +33,7 @@ import { AdminOrders } from './pages/admin/AdminOrders';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/buyora-ecommerce">
       <ThemeProvider>
         <AuthProvider>
           <CartProvider>
