@@ -19,7 +19,7 @@ app.use(express.json());
 app.use(cors({
   origin: 'https://maryamemaddd.github.io',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization', 'token']
 }));
 
 app.use('/api/auth', authRoutes);
