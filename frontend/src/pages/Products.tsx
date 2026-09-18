@@ -67,7 +67,7 @@ export const Products = () => {
         <div className="flex flex-col lg:flex-row gap-8 animate-fade-in relative z-10">
             {/* Mobile Filter Toggle */}
             <div className="lg:hidden flex items-center justify-between mb-4">
-                <h1 className="text-lg font-extrabold tracking-tight text-gray-900 dark:text-gray-100">{currentCategory ? currentCategory : 'Shop All'}</h1>
+                <h1 className="text-xl font-extrabold tracking-tight text-gray-900 dark:text-gray-100">{currentCategory ? currentCategory : 'Shop All'}</h1>
                 <button
                     onClick={() => setIsFilterOpen(!isFilterOpen)}
                     className="flex items-center text-sm font-bold text-gray-800 dark:text-gray-200 bg-white/70 dark:bg-slate-800/80 backdrop-blur-md px-5 py-2.5 rounded-full shadow-md border border-gray-100 dark:border-gray-700"
@@ -166,7 +166,7 @@ export const Products = () => {
             {/* Main Content */}
             <div className="flex-1 pb-16">
                 <div className="hidden lg:flex items-end justify-between mb-8 pb-4 border-b border-gray-200/50 dark:border-gray-700/50">
-                    <h1 className="text-xl lg:text-2xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-500 dark:from-slate-100 dark:to-gray-500">{currentCategory ? currentCategory : 'The Collection'}</h1>
+                    <h1 className="text-2xl lg:text-3xl font-extrabold tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-500 dark:from-slate-100 dark:to-gray-500">{currentCategory ? currentCategory : 'The Collection'}</h1>
                     <div className="flex items-center space-x-3 bg-white/60 dark:bg-slate-800/50 backdrop-blur-md px-4 py-2 rounded-full border border-gray-100 dark:border-white/5 shadow-sm">
                         <span className="text-sm font-medium text-gray-500 dark:text-gray-400">Sort by:</span>
                         <select

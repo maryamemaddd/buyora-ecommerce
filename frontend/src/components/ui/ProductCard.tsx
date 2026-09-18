@@ -44,10 +44,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
                     <div className="p-5 flex flex-col flex-grow z-10 bg-white/80 dark:bg-transparent">
                         <span className="text-xs text-brand-600 dark:text-brand-400 font-bold tracking-widest uppercase mb-1">{product.category}</span>
-                        <h3 className="text-sm font-bold text-gray-900 dark:text-slate-200 tracking-tight line-clamp-1 mb-auto">{product.name}</h3>
+                        <h3 className="text-base font-bold text-gray-900 dark:text-slate-200 tracking-tight line-clamp-1 mb-auto">{product.name}</h3>
 
                         <div className="mt-4 flex items-center justify-between">
-                            <span className="text-base font-black text-gray-900 dark:text-slate-100 tracking-tighter">${Number(product.price).toFixed(2)}</span>
+                            <span className="text-lg font-black text-gray-900 dark:text-slate-100 tracking-tighter">${Number(product.price).toFixed(2)}</span>
                             {/* Visual cue that it flips */}
                             <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">Hover for details &rarr;</span>
                         </div>
@@ -59,12 +59,12 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     {/* Glowing effect inside the back card */}
                     <div className="absolute top-[-20%] right-[-20%] w-[200px] h-[200px] bg-brand-500/20 rounded-full mix-blend-screen filter blur-[50px] opacity-70"></div>
 
-                    <h3 className="text-sm font-bold text-gray-900 dark:text-white tracking-tight mb-2">{product.name}</h3>
-                    <p className="text-gray-500 dark:text-gray-400 text-[11px] mb-2 line-clamp-4 leading-relaxed">
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white tracking-tight mb-2">{product.name}</h3>
+                    <p className="text-gray-500 dark:text-gray-400 text-xs mb-3 line-clamp-4 leading-relaxed">
                         {product.description || "Experience the pinnacle of luxury with this expertly crafted piece, designed to elevate your sophisticated lifestyle."}
                     </p>
 
-                    <div className="text-lg font-black text-brand-600 dark:text-brand-400 tracking-tighter mb-4">
+                    <div className="text-xl font-black text-brand-600 dark:text-brand-400 tracking-tighter mb-4">
                         ${Number(product.price).toFixed(2)}
                     </div>
 

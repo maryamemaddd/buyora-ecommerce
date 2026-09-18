@@ -88,7 +88,7 @@ export const Home = () => {
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1.2, ease: "easeOut" }}
-                            className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 tracking-tighter mb-2 md:mb-4 drop-shadow-2xl"
+                            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 tracking-tighter mb-2 md:mb-4 drop-shadow-2xl"
                         >
                             Elevate Your Space
                         </motion.h1>
@@ -96,7 +96,7 @@ export const Home = () => {
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-                            className="text-lg md:text-xl lg:text-2xl text-gray-200 font-medium mb-6 max-w-2xl drop-shadow-md"
+                            className="text-lg md:text-xl text-gray-200 font-medium mb-6 max-w-2xl drop-shadow-md"
                         >
                             Discover a curated collection of ultra-premium goods designed to redefine modern elegance.
                         </motion.p>
@@ -202,7 +202,7 @@ export const Home = () => {
 
                                 {/* Center Title (Moves up on hover) */}
                                 <div className="absolute inset-0 flex flex-col items-center justify-center transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-8">
-                                    <span className="text-white text-base font-bold uppercase tracking-widest drop-shadow-md">{cat.name}</span>
+                                    <span className="text-white text-lg font-bold uppercase tracking-widest drop-shadow-md">{cat.name}</span>
                                 </div>
 
                                 {/* Shop Now Button (Fades and rises from bottom) */}
@@ -260,10 +260,10 @@ export const Home = () => {
                         </div>
 
                         <div className="relative z-10 flex flex-col items-center justify-center">
-                            <h2 className="text-xl sm:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-400 tracking-tighter mb-2 text-center">
+                            <h2 className="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-400 tracking-tighter mb-2 text-center">
                                 Join the <span className="text-brand-600 dark:text-brand-400">Buyora</span> Club
                             </h2>
-                            <p className="max-w-xl mx-auto text-sm text-gray-700 dark:text-gray-300 font-medium mb-6 relative z-10 leading-relaxed">
+                            <p className="max-w-xl mx-auto text-base text-gray-700 dark:text-gray-300 font-medium mb-6 relative z-10 leading-relaxed">
                                 Subscribe to receive early VIP access to new sophisticated collections, exclusive discounts, and style inspiration.
                             </p>
 
