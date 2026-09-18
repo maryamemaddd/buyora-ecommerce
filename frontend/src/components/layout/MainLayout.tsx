@@ -23,7 +23,7 @@ export const MainLayout = () => {
             <div className="flex flex-col min-h-screen w-full font-sans antialiased">
                 <TopBanner />
                 <Navbar />
-                <main className="flex-grow w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10 animate-fade-in">
+                <main className="flex-grow w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10 animate-fade-in">
                     <Outlet />
                 </main>
                 <Footer />
