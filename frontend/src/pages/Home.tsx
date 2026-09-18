@@ -88,7 +88,7 @@ export const Home = () => {
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1.2, ease: "easeOut" }}
-                            className="text-6xl md:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-200 to-gray-500 dark:shimmer-text tracking-tighter mb-6 drop-shadow-2xl"
+                            className="text-4xl md:text-6xl lg:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-200 to-gray-500 dark:shimmer-text tracking-tighter mb-6 drop-shadow-2xl"
                         >
                             Elevate Your Space
                         </motion.h1>
@@ -96,7 +96,7 @@ export const Home = () => {
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-                            className="text-xl md:text-3xl text-gray-200 mb-10 max-w-3xl font-light drop-shadow-md"
+                            className="text-lg md:text-xl lg:text-3xl text-gray-200 mb-10 max-w-3xl font-light drop-shadow-md"
                         >
                             Discover a curated collection of ultra-premium goods designed to redefine modern elegance.
                         </motion.p>
@@ -108,7 +108,7 @@ export const Home = () => {
                         >
                             <Link
                                 to="/products"
-                                className="group/btn inline-flex items-center px-10 py-5 text-lg font-bold text-gray-900 dark:text-gray-900 bg-white/90 dark:bg-white/90 backdrop-blur-md rounded-full hover:bg-white dark:hover:bg-white transition-all duration-500 shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.6)] hover:scale-105 hover:-translate-y-1"
+                                className="group/btn inline-flex items-center px-6 py-3 md:px-10 md:py-5 text-base md:text-lg font-bold text-gray-900 dark:text-gray-900 bg-white/90 dark:bg-white/90 backdrop-blur-md rounded-full hover:bg-white dark:hover:bg-white transition-all duration-500 shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.6)] hover:scale-105 hover:-translate-y-1"
                             >
                                 Explore Collection <ArrowRight className="ml-3 w-6 h-6 transition-transform group-hover/btn:translate-x-2" />
                             </Link>
@@ -120,7 +120,7 @@ export const Home = () => {
             {/* Features */}
             <section className="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 mt-8">
                 <ScrollReveal delay={100} animation="-translate-x-12 opacity-0">
-                    <div className="flex flex-col items-center text-center p-10 bg-white/60 dark:bg-slate-900/40 backdrop-blur-xl rounded-[2rem] shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-white/50 dark:border-white/5 relative overflow-hidden group">
+                    <div className="flex flex-col items-center text-center p-6 md:p-10 bg-white/60 dark:bg-slate-900/40 backdrop-blur-xl rounded-[2rem] shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-white/50 dark:border-white/5 relative overflow-hidden group">
                         <div className="absolute inset-0 bg-gradient-to-br from-brand-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div className="w-20 h-20 bg-brand-50 dark:bg-brand-900/40 rounded-3xl flex items-center justify-center mb-6 text-brand-600 dark:text-brand-400 group-hover:scale-110 transition-transform duration-500 shadow-inner">
                             <Truck className="w-10 h-10" />
@@ -130,7 +130,7 @@ export const Home = () => {
                     </div>
                 </ScrollReveal>
                 <ScrollReveal delay={300} animation="translate-y-12 opacity-0">
-                    <div className="flex flex-col items-center text-center p-10 bg-white/60 dark:bg-slate-900/40 backdrop-blur-xl rounded-[2rem] shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-white/50 dark:border-white/5 relative overflow-hidden group">
+                    <div className="flex flex-col items-center text-center p-6 md:p-10 bg-white/60 dark:bg-slate-900/40 backdrop-blur-xl rounded-[2rem] shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-white/50 dark:border-white/5 relative overflow-hidden group">
                         <div className="absolute inset-0 bg-gradient-to-br from-accent-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div className="w-20 h-20 bg-accent-50 dark:bg-accent-900/40 rounded-3xl flex items-center justify-center mb-6 text-accent-500 group-hover:scale-110 transition-transform duration-500 shadow-inner">
                             <ShieldCheckIcon className="w-10 h-10" />
@@ -140,7 +140,7 @@ export const Home = () => {
                     </div>
                 </ScrollReveal>
                 <ScrollReveal delay={500} animation="translate-x-12 opacity-0">
-                    <div className="flex flex-col items-center text-center p-10 bg-white/60 dark:bg-slate-900/40 backdrop-blur-xl rounded-[2rem] shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-white/50 dark:border-white/5 relative overflow-hidden group">
+                    <div className="flex flex-col items-center text-center p-6 md:p-10 bg-white/60 dark:bg-slate-900/40 backdrop-blur-xl rounded-[2rem] shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-white/50 dark:border-white/5 relative overflow-hidden group">
                         <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div className="w-20 h-20 bg-yellow-50 dark:bg-yellow-900/40 rounded-3xl flex items-center justify-center mb-6 text-yellow-600 group-hover:scale-110 transition-transform duration-500 shadow-inner">
                             <ShoppingBag className="w-10 h-10" />
@@ -218,7 +218,7 @@ export const Home = () => {
             </section>
 
             {/* Testimonials */}
-            <section className="px-6 py-20 bg-white/60 dark:bg-slate-900/40 rounded-[3rem] mx-2 shadow-2xl backdrop-blur-xl border border-white/60 dark:border-white/10 my-16">
+            <section className="px-6 py-12 md:py-20 bg-white/60 dark:bg-slate-900/40 rounded-[3rem] mx-2 shadow-2xl backdrop-blur-xl border border-white/60 dark:border-white/10 my-16">
                 <ScrollReveal>
                     <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-slate-100 mb-12 text-center">What Our Customers Say</h2>
                 </ScrollReveal>
@@ -229,7 +229,7 @@ export const Home = () => {
                         { name: "Elena R.", role: "Verified Buyer", text: "Buyora is my go-to for curated gifts. Every product feels like it's been hand-picked by a world-class designer." }
                     ].map((t, idx) => (
                         <ScrollReveal key={idx} delay={idx * 200} animation="translate-y-10 opacity-0" duration="duration-[800ms]">
-                            <div className="p-8 rounded-2xl bg-white dark:bg-gray-800 shadow-xl border border-gray-100 dark:border-gray-700 h-full flex flex-col">
+                            <div className="p-6 md:p-8 rounded-2xl bg-white dark:bg-gray-800 shadow-xl border border-gray-100 dark:border-gray-700 h-full flex flex-col">
                                 <div className="flex text-yellow-400 mb-4">
                                     {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" />)}
                                 </div>
@@ -285,7 +285,7 @@ export const Home = () => {
                                 }}
                             >
                                 <div className="absolute inset-0 rounded-full bg-gradient-to-r from-brand-500 to-accent-500 blur-xl opacity-20 group-hover/form:opacity-40 transition-opacity duration-700"></div>
-                                <div className="relative flex flex-col sm:flex-row gap-3 p-1.5 rounded-full bg-white/60 dark:bg-white/80 backdrop-blur-xl border border-white/80 dark:border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(255,255,255,0.05)]">
+                                <div className="relative flex flex-col sm:flex-row gap-3 p-1.5 rounded-[2rem] sm:rounded-full bg-white/60 dark:bg-white/80 backdrop-blur-xl border border-white/80 dark:border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.1)] dark:shadow-[0_8px_32px_rgba(255,255,255,0.05)]">
                                     <input
                                         type="email"
                                         placeholder="Enter your email address"
