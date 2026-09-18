@@ -10,7 +10,7 @@ export const Footer = () => {
                     <div className="col-span-1 md:col-span-1">
                         <div className="flex items-center mb-6">
                             <ShoppingBag className="w-8 h-8 mr-2 text-brand-600 dark:text-brand-400 stroke-[2.5]" />
-                            <div className="text-3xl font-extrabold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-accent-500 dark:from-brand-400 dark:to-accent-400 inline-block">
+                            <div className="text-3xl font-extrabold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-accent-500 dark:from-brand-400 dark:to-accent-400 inline-block pb-2 leading-normal">
                                 Buyora
                             </div>
                         </div>

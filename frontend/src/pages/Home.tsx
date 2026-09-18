@@ -156,7 +156,7 @@ export const Home = () => {
                 <ScrollReveal>
                     <div className="flex justify-between items-end mb-8">
                         <div>
-                            <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:to-slate-400 mb-2">Editor's Picks</h2>
+                            <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:to-slate-400 mb-2 pb-2 leading-normal">Editor's Picks</h2>
                             <p className="text-gray-500 dark:text-slate-400 max-w-2xl font-medium">Curated selections of our finest premium products.</p>
                         </div>
                         <Link to="/products" className="hidden sm:flex items-center text-brand-600 dark:text-brand-400 font-bold hover:text-brand-700 dark:hover:text-brand-300 transition">
@@ -183,7 +183,7 @@ export const Home = () => {
             {/* Featured Categories */}
             <section className="px-4 pb-12 w-full max-w-6xl mx-auto">
                 <ScrollReveal>
-                    <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:to-gray-500 mb-8 text-center">Shop by Category</h2>
+                    <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-transparent dark:bg-clip-text dark:bg-gradient-to-r dark:from-white dark:to-gray-500 mb-8 text-center pb-2 leading-normal">Shop by Category</h2>
                 </ScrollReveal>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {categories.map((cat, index) => (
@@ -260,7 +260,7 @@ export const Home = () => {
                         </div>
 
                         <div className="relative z-10 flex flex-col items-center justify-center">
-                            <h2 className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-400 tracking-tighter mb-4 text-center">
+                            <h2 className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-400 tracking-tighter mb-4 text-center pb-2 leading-normal">
                                 Join the <span className="text-brand-600 dark:text-brand-400">Buyora</span> Club
                             </h2>
                             <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-700 dark:text-gray-300 font-medium mb-12 relative z-10 leading-relaxed">

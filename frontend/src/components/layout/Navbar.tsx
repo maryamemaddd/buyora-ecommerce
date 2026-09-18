@@ -31,7 +31,7 @@ export const Navbar = () => {
             <div className="w-full max-w-[1250px] mx-auto h-20 px-4 sm:px-6 lg:px-8 flex justify-between items-center transition-all">
                 <div className="flex items-center cursor-pointer group" onClick={() => navigate('/')}>
                     <ShoppingBag className="w-6 h-6 md:w-7 md:h-7 mr-1.5 md:mr-2 text-brand-600 dark:text-brand-400 group-hover:-rotate-12 transition-transform duration-300 stroke-[2.5]" />
-                    <span className="text-2xl md:text-3xl font-extrabold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-accent-500 dark:from-brand-400 dark:to-accent-400 group-hover:scale-105 transition-transform duration-300">Buyora</span>
+                    <span className="text-2xl md:text-3xl font-extrabold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-accent-500 dark:from-brand-400 dark:to-accent-400 group-hover:scale-105 transition-transform duration-300 pb-2 inline-block leading-normal">Buyora</span>
                 </div>
 
                 <div className="hidden sm:flex sm:items-center sm:space-x-1">
