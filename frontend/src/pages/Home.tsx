@@ -202,7 +202,7 @@ export const Home = () => {
 
                                 {/* Center Title (Moves up on hover) */}
                                 <div className="absolute inset-0 flex flex-col items-center justify-center transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-8">
-                                    <span className="text-white text-2xl md:text-3xl font-extrabold uppercase tracking-widest drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">{cat.name}</span>
+                                    <span className="text-white text-lg md:text-xl font-bold uppercase tracking-widest drop-shadow-md">{cat.name}</span>
                                 </div>
 
                                 {/* Shop Now Button (Fades and rises from bottom) */}
@@ -260,10 +260,10 @@ export const Home = () => {
                         </div>
 
                         <div className="relative z-10 flex flex-col items-center justify-center">
-                            <h2 className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-400 tracking-tighter mb-4 text-center">
+                            <h2 className="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-400 tracking-tighter mb-4 text-center">
                                 Join the <span className="text-brand-600 dark:text-brand-400">Buyora</span> Club
                             </h2>
-                            <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-700 dark:text-gray-300 font-medium mb-12 relative z-10 leading-relaxed">
+                            <p className="max-w-2xl mx-auto text-base text-gray-700 dark:text-gray-300 font-medium mb-8 relative z-10 leading-relaxed">
                                 Subscribe to receive early VIP access to new sophisticated collections, exclusive discounts, and style inspiration.
                             </p>
 

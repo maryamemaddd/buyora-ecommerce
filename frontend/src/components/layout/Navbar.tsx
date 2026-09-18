@@ -34,7 +34,7 @@ export const Navbar = () => {
                     <span className="text-2xl md:text-3xl font-extrabold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-accent-500 dark:from-brand-400 dark:to-accent-400 group-hover:scale-105 transition-transform duration-300">Buyora</span>
                 </div>
 
-                <div className="hidden sm:flex sm:items-center sm:space-x-1">
+                <div className="hidden sm:flex sm:items-center sm:space-x-6 lg:space-x-12">
                     <Link to="/" className={getLinkClass('/')}>Home</Link>
                     <Link to="/products" className={getLinkClass('/products')}>Shop</Link>
 
