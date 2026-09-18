@@ -52,7 +52,7 @@ export const Home = () => {
         <div className="flex flex-col space-y-16 lg:space-y-24 overflow-hidden pb-12">
             {/* Hero Section */}
             <ScrollReveal animation="translate-y-10 opacity-0" duration="duration-[1200ms]">
-                <section className="relative rounded-[2.5rem] overflow-hidden bg-gray-900 h-[80vh] min-h-[600px] shadow-2xl mx-2 mt-4 group border border-gray-200 dark:border-gray-800">
+                <section className="relative rounded-[2.5rem] overflow-hidden bg-gray-900 h-[65vh] min-h-[450px] shadow-2xl mx-2 mt-4 group border border-gray-200 dark:border-gray-800">
                     <Swiper
                         modules={[Autoplay, EffectFade, Pagination]}
                         effect="fade"
