@@ -44,10 +44,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
                     <div className="p-5 flex flex-col flex-grow z-10 bg-white/80 dark:bg-transparent">
                         <span className="text-xs text-brand-600 dark:text-brand-400 font-bold tracking-widest uppercase mb-1">{product.category}</span>
-                        <h3 className="text-base font-bold text-gray-900 dark:text-slate-200 tracking-tight line-clamp-1 mb-auto">{product.name}</h3>
+                        <h3 className="text-xl font-bold text-gray-900 dark:text-slate-200 tracking-tight line-clamp-1 mb-auto">{product.name}</h3>
 
                         <div className="mt-4 flex items-center justify-between">
-                            <span className="text-lg font-black text-gray-900 dark:text-slate-100 tracking-tighter">${Number(product.price).toFixed(2)}</span>
+                            <span className="text-2xl font-black text-gray-900 dark:text-slate-100 tracking-tighter">${Number(product.price).toFixed(2)}</span>
                             {/* Visual cue that it flips */}
                             <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">Hover for details &rarr;</span>
                         </div>
@@ -59,18 +59,18 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                     {/* Glowing effect inside the back card */}
                     <div className="absolute top-[-20%] right-[-20%] w-[200px] h-[200px] bg-brand-500/20 rounded-full mix-blend-screen filter blur-[50px] opacity-70"></div>
 
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white tracking-tight mb-2">{product.name}</h3>
-                    <p className="text-gray-500 dark:text-gray-400 text-xs mb-3 line-clamp-4 leading-relaxed">
+                    <h3 className="text-2xl font-bold text-gray-900 dark:text-white tracking-tight mb-2">{product.name}</h3>
+                    <p className="text-gray-500 dark:text-gray-400 text-sm mb-6 line-clamp-4 leading-relaxed">
                         {product.description || "Experience the pinnacle of luxury with this expertly crafted piece, designed to elevate your sophisticated lifestyle."}
                     </p>
 
-                    <div className="text-xl font-black text-brand-600 dark:text-brand-400 tracking-tighter mb-4">
+                    <div className="text-3xl font-black text-brand-600 dark:text-brand-400 tracking-tighter mb-8">
                         ${Number(product.price).toFixed(2)}
                     </div>
 
                     <div className="flex flex-col gap-3 w-full">
                         <Button
-                            size="sm"
+                            size="md"
                             variant={product.stock > 0 ? 'primary' : 'secondary'}
                             disabled={product.stock === 0 || loading}
                             onClick={(e) => {
@@ -85,7 +85,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                         </Button>
                         <Link
                             to={`/products/${product._id}`}
-                            className="w-full py-2 px-3 text-sm rounded-2xl bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-900 dark:text-white font-bold transition-all duration-300 transform active:scale-95"
+                            className="w-full py-3 px-4 rounded-2xl bg-gray-100 hover:bg-gray-200 dark:bg-white/5 dark:hover:bg-white/10 text-gray-900 dark:text-white font-bold transition-all duration-300 transform active:scale-95"
                             onClick={(e) => e.stopPropagation()}
                         >
                             View Full Details

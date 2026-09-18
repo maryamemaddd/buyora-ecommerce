@@ -88,7 +88,7 @@ export const Home = () => {
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1.2, ease: "easeOut" }}
-                            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 tracking-tighter mb-2 md:mb-4 drop-shadow-2xl"
+                            className="text-4xl md:text-6xl lg:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-200 to-gray-500 dark:shimmer-text tracking-tighter mb-6 drop-shadow-2xl"
                         >
                             Elevate Your Space
                         </motion.h1>
@@ -96,7 +96,7 @@ export const Home = () => {
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-                            className="text-lg md:text-xl text-gray-200 font-medium mb-6 max-w-2xl drop-shadow-md"
+                            className="text-lg md:text-xl lg:text-3xl text-gray-200 mb-10 max-w-3xl font-light drop-shadow-md"
                         >
                             Discover a curated collection of ultra-premium goods designed to redefine modern elegance.
                         </motion.p>
@@ -202,12 +202,12 @@ export const Home = () => {
 
                                 {/* Center Title (Moves up on hover) */}
                                 <div className="absolute inset-0 flex flex-col items-center justify-center transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-8">
-                                    <span className="text-white text-lg font-bold uppercase tracking-widest drop-shadow-md">{cat.name}</span>
+                                    <span className="text-white text-2xl md:text-3xl font-extrabold uppercase tracking-widest drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">{cat.name}</span>
                                 </div>
 
                                 {/* Shop Now Button (Fades and rises from bottom) */}
                                 <div className="absolute inset-x-0 bottom-8 px-6 flex flex-col items-center justify-end opacity-0 transform translate-y-12 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] delay-75">
-                                    <div className="bg-white text-gray-900 px-4 py-2 md:px-6 md:py-3 rounded-full font-bold text-sm flex items-center justify-center gap-2 group-hover:bg-brand-50 transition-colors shadow-lg shadow-white/10 group/btn2">
+                                    <div className="bg-white text-gray-900 px-8 py-3.5 rounded-full font-bold shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:scale-105 active:scale-95 transition-transform flex items-center justify-center gap-2 group/btn2">
                                         Shop Now <ArrowRight className="w-5 h-5 transition-transform group-hover/btn2:translate-x-1" />
                                     </div>
                                 </div>
@@ -260,10 +260,10 @@ export const Home = () => {
                         </div>
 
                         <div className="relative z-10 flex flex-col items-center justify-center">
-                            <h2 className="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-400 tracking-tighter mb-2 text-center">
+                            <h2 className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-400 tracking-tighter mb-4 text-center">
                                 Join the <span className="text-brand-600 dark:text-brand-400">Buyora</span> Club
                             </h2>
-                            <p className="max-w-xl mx-auto text-base text-gray-700 dark:text-gray-300 font-medium mb-6 relative z-10 leading-relaxed">
+                            <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-700 dark:text-gray-300 font-medium mb-12 relative z-10 leading-relaxed">
                                 Subscribe to receive early VIP access to new sophisticated collections, exclusive discounts, and style inspiration.
                             </p>
 
