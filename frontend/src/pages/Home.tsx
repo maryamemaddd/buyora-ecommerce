@@ -88,7 +88,7 @@ export const Home = () => {
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1.2, ease: "easeOut" }}
-                            className="text-4xl md:text-6xl lg:text-8xl font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white via-gray-200 to-gray-500 dark:shimmer-text tracking-tighter mb-6 drop-shadow-2xl"
+                            className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-white tracking-tighter mb-6 drop-shadow-2xl"
                         >
                             Elevate Your Space
                         </motion.h1>
@@ -96,7 +96,7 @@ export const Home = () => {
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-                            className="text-lg md:text-xl lg:text-3xl text-gray-200 mb-10 max-w-3xl font-light drop-shadow-md"
+                            className="text-base md:text-lg lg:text-2xl text-white mb-10 max-w-3xl font-light drop-shadow-md"
                         >
                             Discover a curated collection of ultra-premium goods designed to redefine modern elegance.
                         </motion.p>
