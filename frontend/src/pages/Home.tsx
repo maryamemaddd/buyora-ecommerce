@@ -202,7 +202,7 @@ export const Home = () => {
 
                                 {/* Center Title (Moves up on hover) */}
                                 <div className="absolute inset-0 flex flex-col items-center justify-center transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-8">
-                                    <span className="text-white text-2xl md:text-3xl font-extrabold uppercase tracking-widest drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">{cat.name}</span>
+                                    <span className="text-white text-xl md:text-2xl font-extrabold uppercase tracking-widest drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">{cat.name}</span>
                                 </div>
 
                                 {/* Shop Now Button (Fades and rises from bottom) */}
