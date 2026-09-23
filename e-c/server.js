@@ -16,10 +16,28 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
+const allowedOrigins = [
+  'https://maryamemaddd.github.io',
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'http://127.0.0.1:5173',
+  'http://127.0.0.1:3000',
+  'http://premium-ecommerce.surge.sh',
+  'https://premium-ecommerce.surge.sh'
+];
+
 app.use(cors({
-  origin: 'https://maryamemaddd.github.io',
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps, curl, or Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin) || process.env.NODE_ENV !== 'production') {
+      return callback(null, true);
+    }
+    return callback(null, true);
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'token']
+  allowedHeaders: ['Content-Type', 'Authorization', 'token'],
+  credentials: true
 }));
 
 app.use('/api/auth', authRoutes);
