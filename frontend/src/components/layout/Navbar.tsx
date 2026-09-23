@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ShoppingCart, Menu, X, User, Sun, Moon, ShoppingBag } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
@@ -26,25 +27,54 @@ export const Navbar = () => {
         return `${linkBase} ${location.pathname === path ? linkActive : linkInactive}`;
     };
 
+    const drawerRef = useRef<HTMLElement | null>(null);
+
     // Auto-close menu when route changes
-    React.useEffect(() => {
+    useEffect(() => {
         setIsOpen(false);
     }, [location.pathname]);
 
-    // Lock body scroll when mobile navbar is open
-    React.useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
+    // Completely lock document scroll when mobile navbar is open
+    useEffect(() => {
+        if (!isOpen) return;
+
+        const originalOverflowHtml = document.documentElement.style.overflow;
+        const originalOverflowBody = document.body.style.overflow;
+        const originalTouchAction = document.body.style.touchAction;
+
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        document.body.style.touchAction = 'none';
+
+        // Block any touchmove or wheel event that occurs OUTSIDE the drawer
+        const handleTouchMove = (e: TouchEvent) => {
+            if (drawerRef.current && drawerRef.current.contains(e.target as Node)) {
+                return; // allow smooth scrolling inside the drawer
+            }
+            e.preventDefault();
+        };
+
+        const handleWheel = (e: WheelEvent) => {
+            if (drawerRef.current && drawerRef.current.contains(e.target as Node)) {
+                return; // allow smooth scrolling inside the drawer
+            }
+            e.preventDefault();
+        };
+
+        window.addEventListener('touchmove', handleTouchMove, { passive: false });
+        window.addEventListener('wheel', handleWheel, { passive: false });
+
         return () => {
-            document.body.style.overflow = '';
+            document.documentElement.style.overflow = originalOverflowHtml;
+            document.body.style.overflow = originalOverflowBody;
+            document.body.style.touchAction = originalTouchAction;
+            window.removeEventListener('touchmove', handleTouchMove);
+            window.removeEventListener('wheel', handleWheel);
         };
     }, [isOpen]);
 
     return (
-        <nav className="glass-nav sticky top-0 z-50 transition-all duration-500 border-b border-gray-200/50 dark:border-white/10 w-full bg-white/95 dark:bg-zinc-950/95 shadow-lg backdrop-blur-2xl">
+        <nav className="glass-nav sticky top-0 z-[100] transition-all duration-500 border-b border-gray-200/50 dark:border-white/10 w-full bg-white/95 dark:bg-zinc-950/95 shadow-lg backdrop-blur-2xl">
             <div className="w-full max-w-[1250px] mx-auto h-20 px-4 sm:px-6 lg:px-8 flex justify-between items-center transition-all">
                 <div className="flex items-center cursor-pointer group" onClick={() => { navigate('/'); setIsOpen(false); }}>
                     <ShoppingBag className="w-6 h-6 md:w-7 md:h-7 mr-1.5 md:mr-2 text-brand-600 dark:text-brand-400 group-hover:-rotate-12 transition-transform duration-300 stroke-[2.5]" />
@@ -131,95 +161,105 @@ export const Navbar = () => {
                 </div>
             </div>
 
-            {/* Mobile / Tablet Side Drawer & Backdrop */}
-            {/* Backdrop */}
-            <div
-                className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden overscroll-none touch-none transition-opacity duration-300 ${
-                    isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-                }`}
-                onClick={() => setIsOpen(false)}
-            />
-
-            {/* Side Drawer (covers half screen from right, full vertical length) */}
-            <aside
-                className={`fixed top-0 right-0 h-screen w-1/2 sm:w-1/2 min-w-[250px] max-w-sm bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl border-l border-gray-200/80 dark:border-white/10 shadow-2xl z-40 lg:hidden flex flex-col pt-20 transition-transform duration-300 ease-in-out overscroll-contain ${
-                    isOpen ? 'translate-x-0' : 'translate-x-full'
-                }`}
-                aria-label="Mobile navigation"
-            >
-                <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 space-y-1">
-                    <Link
-                        to="/"
-                        onClick={() => setIsOpen(false)}
-                        className={`block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-colors ${
-                            location.pathname === '/'
-                                ? 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400'
-                                : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900'
+            {/* Mobile / Tablet Side Drawer & Backdrop via Portal */}
+            {typeof document !== 'undefined' && createPortal(
+                <>
+                    {/* Backdrop */}
+                    <div
+                        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[80] lg:hidden overscroll-none touch-none transition-opacity duration-300 ${
+                            isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                         }`}
-                    >
-                        Home
-                    </Link>
-                    <Link
-                        to="/products"
                         onClick={() => setIsOpen(false)}
-                        className={`block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-colors ${
-                            location.pathname === '/products'
-                                ? 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400'
-                                : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900'
+                    />
+
+                    {/* Side Drawer (covers half screen from right, full vertical length) */}
+                    <aside
+                        ref={drawerRef}
+                        className={`fixed top-0 right-0 h-screen w-1/2 sm:w-1/2 min-w-[260px] max-w-sm bg-white/98 dark:bg-zinc-950/98 backdrop-blur-2xl border-l border-gray-200/80 dark:border-white/10 shadow-2xl z-[90] lg:hidden flex flex-col pt-20 transition-transform duration-300 ease-in-out overscroll-contain ${
+                            isOpen ? 'translate-x-0' : 'translate-x-full'
                         }`}
+                        style={{ touchAction: 'pan-y' }}
+                        aria-label="Mobile navigation"
                     >
-                        Shop
-                    </Link>
+                        <div
+                            className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 space-y-1"
+                            style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}
+                        >
+                            <Link
+                                to="/"
+                                onClick={() => setIsOpen(false)}
+                                className={`block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-colors ${
+                                    location.pathname === '/'
+                                        ? 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400'
+                                        : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900'
+                                }`}
+                            >
+                                Home
+                            </Link>
+                            <Link
+                                to="/products"
+                                onClick={() => setIsOpen(false)}
+                                className={`block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-colors ${
+                                    location.pathname === '/products'
+                                        ? 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400'
+                                        : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900'
+                                }`}
+                            >
+                                Shop
+                            </Link>
 
-                    {/* Support Section */}
-                    <div className="border-t border-gray-100 dark:border-white/10 my-2 pt-2">
-                        <span className="block px-3.5 py-1 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
-                            Support
-                        </span>
-                        <div className="space-y-0.5 mt-1">
-                            <Link to="/help" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Help Center</Link>
-                            <Link to="/track-order" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Track Order</Link>
-                            <Link to="/returns" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Returns & Refunds</Link>
-                            <Link to="/privacy" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Privacy Policy</Link>
-                            <Link to="/terms" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Terms of Service</Link>
-                        </div>
-                    </div>
+                            {/* Support Section */}
+                            <div className="border-t border-gray-100 dark:border-white/10 my-2 pt-2">
+                                <span className="block px-3.5 py-1 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
+                                    Support
+                                </span>
+                                <div className="space-y-0.5 mt-1">
+                                    <Link to="/help" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Help Center</Link>
+                                    <Link to="/track-order" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Track Order</Link>
+                                    <Link to="/returns" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Returns & Refunds</Link>
+                                    <Link to="/privacy" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Privacy Policy</Link>
+                                    <Link to="/terms" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Terms of Service</Link>
+                                </div>
+                            </div>
 
-                    {/* Account Section */}
-                    <div className="border-t border-gray-100 dark:border-white/10 my-2 pt-2">
-                        {isAuthenticated ? (
-                            <div className="space-y-1">
-                                {user?.role === 'admin' && (
-                                    <Link to="/admin" onClick={() => setIsOpen(false)} className="block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950/30">
-                                        Admin Dashboard
-                                    </Link>
+                            {/* Account Section */}
+                            <div className="border-t border-gray-100 dark:border-white/10 my-2 pt-2">
+                                {isAuthenticated ? (
+                                    <div className="space-y-1">
+                                        {user?.role === 'admin' && (
+                                            <Link to="/admin" onClick={() => setIsOpen(false)} className="block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950/30">
+                                                Admin Dashboard
+                                            </Link>
+                                        )}
+                                        <Link to="/orders" onClick={() => setIsOpen(false)} className="block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900">
+                                            My Orders
+                                        </Link>
+                                        <Link to="/profile" onClick={() => setIsOpen(false)} className="block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900">
+                                            Profile ({user?.name || 'User'})
+                                        </Link>
+                                        <button
+                                            onClick={() => { setIsOpen(false); handleLogout(); }}
+                                            className="block w-full text-left px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+                                        >
+                                            Logout
+                                        </button>
+                                    </div>
+                                ) : (
+                                    <div className="pt-2 space-y-2">
+                                        <Link to="/login" onClick={() => setIsOpen(false)} className="block w-full text-center px-4 py-2.5 text-sm font-bold text-gray-800 dark:text-gray-100 bg-gray-100 dark:bg-zinc-800 rounded-xl hover:bg-gray-200 transition-colors">
+                                            Sign In
+                                        </Link>
+                                        <Link to="/register" onClick={() => setIsOpen(false)} className="block w-full text-center px-4 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 rounded-xl shadow-md hover:shadow-lg transition-all">
+                                            Register
+                                        </Link>
+                                    </div>
                                 )}
-                                <Link to="/orders" onClick={() => setIsOpen(false)} className="block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900">
-                                    My Orders
-                                </Link>
-                                <Link to="/profile" onClick={() => setIsOpen(false)} className="block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900">
-                                    Profile ({user?.name || 'User'})
-                                </Link>
-                                <button
-                                    onClick={() => { setIsOpen(false); handleLogout(); }}
-                                    className="block w-full text-left px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
-                                >
-                                    Logout
-                                </button>
                             </div>
-                        ) : (
-                            <div className="pt-2 space-y-2">
-                                <Link to="/login" onClick={() => setIsOpen(false)} className="block w-full text-center px-4 py-2.5 text-sm font-bold text-gray-800 dark:text-gray-100 bg-gray-100 dark:bg-zinc-800 rounded-xl hover:bg-gray-200 transition-colors">
-                                    Sign In
-                                </Link>
-                                <Link to="/register" onClick={() => setIsOpen(false)} className="block w-full text-center px-4 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 rounded-xl shadow-md hover:shadow-lg transition-all">
-                                    Register
-                                </Link>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </aside>
+                        </div>
+                    </aside>
+                </>,
+                document.body
+            )}
         </nav>
     );
 };
