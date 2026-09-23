@@ -107,7 +107,11 @@ export const Navbar = () => {
                     </Link>
                     <button
                         onClick={() => setIsOpen(!isOpen)}
-                        className="text-gray-600 dark:text-gray-300 p-2.5 rounded-xl hover:bg-gray-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none"
+                        className={`p-2.5 rounded-xl transition-all duration-300 focus:outline-none relative z-50 ${
+                            isOpen
+                                ? 'bg-gray-100 dark:bg-zinc-800 text-brand-600 dark:text-brand-400 rotate-90'
+                                : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-800'
+                        }`}
                         aria-label="Toggle menu"
                     >
                         {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -115,75 +119,95 @@ export const Navbar = () => {
                 </div>
             </div>
 
-            {/* Mobile / Tablet Drawer */}
-            {isOpen && (
-                <>
-                    {/* Backdrop */}
-                    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden" onClick={() => setIsOpen(false)} />
+            {/* Mobile / Tablet Side Drawer & Backdrop */}
+            {/* Backdrop */}
+            <div
+                className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300 ${
+                    isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+                }`}
+                onClick={() => setIsOpen(false)}
+            />
 
-                    <div className="lg:hidden border border-gray-200 dark:border-white/10 bg-white/98 dark:bg-zinc-950/98 backdrop-blur-2xl absolute w-[94%] left-[3%] shadow-2xl rounded-3xl mt-2 overflow-hidden top-full z-50 max-h-[85vh] overflow-y-auto">
-                        <div className="p-4 space-y-1">
-                            <Link
-                                to="/"
-                                onClick={() => setIsOpen(false)}
-                                className={`block px-4 py-3 rounded-2xl text-base font-semibold transition-colors ${location.pathname === '/' ? 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900'}`}
-                            >
-                                Home
-                            </Link>
-                            <Link
-                                to="/products"
-                                onClick={() => setIsOpen(false)}
-                                className={`block px-4 py-3 rounded-2xl text-base font-semibold transition-colors ${location.pathname === '/products' ? 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400' : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900'}`}
-                            >
-                                Shop
-                            </Link>
+            {/* Side Drawer (covers half screen from right, full vertical length) */}
+            <aside
+                className={`fixed top-0 right-0 h-screen w-1/2 sm:w-1/2 min-w-[250px] max-w-sm bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl border-l border-gray-200/80 dark:border-white/10 shadow-2xl z-40 lg:hidden flex flex-col pt-20 transition-transform duration-300 ease-in-out ${
+                    isOpen ? 'translate-x-0' : 'translate-x-full'
+                }`}
+                aria-label="Mobile navigation"
+            >
+                <div className="flex-1 overflow-y-auto px-4 py-4 space-y-1">
+                    <Link
+                        to="/"
+                        onClick={() => setIsOpen(false)}
+                        className={`block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-colors ${
+                            location.pathname === '/'
+                                ? 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400'
+                                : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900'
+                        }`}
+                    >
+                        Home
+                    </Link>
+                    <Link
+                        to="/products"
+                        onClick={() => setIsOpen(false)}
+                        className={`block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-colors ${
+                            location.pathname === '/products'
+                                ? 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400'
+                                : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900'
+                        }`}
+                    >
+                        Shop
+                    </Link>
 
-                            <div className="border-t border-gray-100 dark:border-white/10 my-2 pt-2 pb-1">
-                                <span className="block px-4 py-1 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">Support</span>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 mt-1">
-                                    <Link to="/help" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-xl">Help Center</Link>
-                                    <Link to="/track-order" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-xl">Track Order</Link>
-                                    <Link to="/returns" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-xl">Returns & Refunds</Link>
-                                    <Link to="/privacy" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-xl">Privacy Policy</Link>
-                                    <Link to="/terms" onClick={() => setIsOpen(false)} className="block px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-xl">Terms of Service</Link>
-                                </div>
-                            </div>
-
-                            <div className="border-t border-gray-100 dark:border-white/10 my-2"></div>
-                            {isAuthenticated ? (
-                                <div className="space-y-1">
-                                    {user?.role === 'admin' && (
-                                        <Link to="/admin" onClick={() => setIsOpen(false)} className="block px-4 py-3 rounded-2xl text-base font-semibold text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950/30">
-                                            Admin Dashboard
-                                        </Link>
-                                    )}
-                                    <Link to="/orders" onClick={() => setIsOpen(false)} className="block px-4 py-3 rounded-2xl text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900">
-                                        My Orders
-                                    </Link>
-                                    <Link to="/profile" onClick={() => setIsOpen(false)} className="block px-4 py-3 rounded-2xl text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900">
-                                        Profile ({user?.name || 'User'})
-                                    </Link>
-                                    <button
-                                        onClick={() => { setIsOpen(false); handleLogout(); }}
-                                        className="block w-full text-left px-4 py-3 rounded-2xl text-base font-semibold text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
-                                    >
-                                        Logout
-                                    </button>
-                                </div>
-                            ) : (
-                                <div className="pt-2 space-y-2">
-                                    <Link to="/login" onClick={() => setIsOpen(false)} className="block w-full text-center px-4 py-3 text-base font-bold text-gray-800 dark:text-gray-100 bg-gray-100 dark:bg-zinc-800 rounded-2xl hover:bg-gray-200 transition-colors">
-                                        Sign In
-                                    </Link>
-                                    <Link to="/register" onClick={() => setIsOpen(false)} className="block w-full text-center px-4 py-3 text-base font-bold text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 rounded-2xl shadow-md hover:shadow-lg transition-all">
-                                        Create an Account
-                                    </Link>
-                                </div>
-                            )}
+                    {/* Support Section */}
+                    <div className="border-t border-gray-100 dark:border-white/10 my-2 pt-2">
+                        <span className="block px-3.5 py-1 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
+                            Support
+                        </span>
+                        <div className="space-y-0.5 mt-1">
+                            <Link to="/help" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Help Center</Link>
+                            <Link to="/track-order" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Track Order</Link>
+                            <Link to="/returns" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Returns & Refunds</Link>
+                            <Link to="/privacy" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Privacy Policy</Link>
+                            <Link to="/terms" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Terms of Service</Link>
                         </div>
                     </div>
-                </>
-            )}
+
+                    {/* Account Section */}
+                    <div className="border-t border-gray-100 dark:border-white/10 my-2 pt-2">
+                        {isAuthenticated ? (
+                            <div className="space-y-1">
+                                {user?.role === 'admin' && (
+                                    <Link to="/admin" onClick={() => setIsOpen(false)} className="block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950/30">
+                                        Admin Dashboard
+                                    </Link>
+                                )}
+                                <Link to="/orders" onClick={() => setIsOpen(false)} className="block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900">
+                                    My Orders
+                                </Link>
+                                <Link to="/profile" onClick={() => setIsOpen(false)} className="block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900">
+                                    Profile ({user?.name || 'User'})
+                                </Link>
+                                <button
+                                    onClick={() => { setIsOpen(false); handleLogout(); }}
+                                    className="block w-full text-left px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+                                >
+                                    Logout
+                                </button>
+                            </div>
+                        ) : (
+                            <div className="pt-2 space-y-2">
+                                <Link to="/login" onClick={() => setIsOpen(false)} className="block w-full text-center px-4 py-2.5 text-sm font-bold text-gray-800 dark:text-gray-100 bg-gray-100 dark:bg-zinc-800 rounded-xl hover:bg-gray-200 transition-colors">
+                                    Sign In
+                                </Link>
+                                <Link to="/register" onClick={() => setIsOpen(false)} className="block w-full text-center px-4 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 rounded-xl shadow-md hover:shadow-lg transition-all">
+                                    Register
+                                </Link>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </aside>
         </nav>
     );
 };
