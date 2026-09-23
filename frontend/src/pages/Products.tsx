@@ -159,6 +159,14 @@ export const Products = () => {
                         >
                             <X className="w-4 h-4" /> Clear All Filters
                         </button>
+                        {isFilterOpen && (
+                            <button
+                                onClick={() => setIsFilterOpen(false)}
+                                className="w-full py-3.5 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl shadow-lg transition-colors flex items-center justify-center shrink-0 mb-2"
+                            >
+                                Show Results ({products.length})
+                            </button>
+                        )}
                     </div>
                 </div>
             </aside>

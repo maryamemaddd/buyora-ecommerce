@@ -60,26 +60,24 @@ export const Orders = () => {
                                         <div className="shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-gray-100 dark:bg-slate-800 border border-gray-200 dark:border-slate-700">
                                             <Package className="h-6 w-6 text-gray-500 dark:text-gray-400" />
                                         </div>
-                                        <div className="min-w-0 flex-1 px-4 md:grid md:grid-cols-2 md:gap-4">
+                                        <div className="min-w-0 flex-1 px-3 sm:px-4 flex flex-col sm:grid sm:grid-cols-2 gap-2 sm:gap-4">
                                             <div>
                                                 <p className="text-sm font-bold text-black dark:text-white truncate">Order #{order._id}</p>
-                                                <p className="mt-2 flex items-center text-sm text-gray-500 dark:text-gray-400">
+                                                <p className="mt-1 flex items-center text-xs sm:text-sm text-gray-500 dark:text-gray-400">
                                                     <span>{new Date(order.createdAt).toLocaleDateString()}</span>
                                                 </p>
                                             </div>
-                                            <div className="hidden md:block">
-                                                <div>
-                                                    <p className="text-sm text-gray-900 dark:text-gray-200">
-                                                        Total: <span className="font-bold text-gray-900 dark:text-white">${order.totalPrice?.toFixed(2)}</span>
-                                                    </p>
-                                                    <div className="mt-2 flex items-center gap-2">
-                                                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${order.isPaid ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                                                            {order.isPaid ? 'Paid' : 'Unpaid'}
-                                                        </span>
-                                                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800`}>
-                                                            {order.status || (order.isDelivered ? 'Delivered' : 'Pending')}
-                                                        </span>
-                                                    </div>
+                                            <div className="mt-1 sm:mt-0 flex flex-wrap sm:flex-col items-start sm:items-end justify-between gap-1.5">
+                                                <p className="text-sm text-gray-900 dark:text-gray-200">
+                                                    Total: <span className="font-bold text-gray-900 dark:text-white">${order.totalPrice?.toFixed(2)}</span>
+                                                </p>
+                                                <div className="flex items-center gap-1.5">
+                                                    <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold ${order.isPaid ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300' : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'}`}>
+                                                        {order.isPaid ? 'Paid' : 'Unpaid'}
+                                                    </span>
+                                                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
+                                                        {order.status || (order.isDelivered ? 'Delivered' : 'Pending')}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>

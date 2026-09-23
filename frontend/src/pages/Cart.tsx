@@ -46,36 +46,36 @@ export const Cart = () => {
                 <div className="lg:col-span-7">
                     <ul role="list" className="border-t border-b border-gray-200 dark:border-gray-700 divide-y divide-gray-200 dark:divide-gray-700">
                         {cartItems.map((item, index) => (
-                            <li key={`${item.product}-${index}`} className="flex py-6 sm:py-8">
+                            <li key={`${item.product}-${index}`} className="flex py-4 sm:py-6 md:py-8">
                                 <div className="shrink-0">
                                     <img
                                         src={item.image || 'https://placehold.co/500x500/18181b/3f3f46?text=Image+Unavailable'}
                                         onError={(e) => { e.currentTarget.src = 'https://placehold.co/500x500/18181b/3f3f46?text=Image+Unavailable' }}
                                         alt={item.name}
-                                        className="w-24 h-24 rounded-2xl object-cover object-center sm:w-32 sm:h-32 shadow-sm hover:scale-105 transition-transform duration-300 border border-gray-100"
+                                        className="w-20 h-20 sm:w-28 sm:h-28 rounded-2xl object-cover object-center shadow-sm hover:scale-105 transition-transform duration-300 border border-gray-100 dark:border-gray-800"
                                     />
                                 </div>
 
-                                <div className="ml-4 flex-1 flex flex-col justify-between sm:ml-6">
-                                    <div className="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
+                                <div className="ml-3 sm:ml-6 flex-1 flex flex-col justify-between">
+                                    <div className="relative pr-8 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
                                         <div>
                                             <div className="flex justify-between">
-                                                <h3 className="text-sm">
-                                                    <Link to={`/products/${item.product}`} className="font-medium text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white">
+                                                <h3 className="text-sm font-semibold">
+                                                    <Link to={`/products/${item.product}`} className="text-gray-800 dark:text-gray-100 hover:text-brand-600 dark:hover:text-brand-400 line-clamp-2">
                                                         {item.name}
                                                     </Link>
                                                 </h3>
                                             </div>
-                                            <p className="mt-1 text-sm font-medium text-gray-900 dark:text-white">${Number(item.price).toFixed(2)}</p>
+                                            <p className="mt-1 text-sm font-bold text-gray-900 dark:text-white">${Number(item.price).toFixed(2)}</p>
                                         </div>
 
-                                        <div className="mt-4 sm:mt-0 sm:pr-9">
-                                            <label htmlFor={`quantity-${index}`} className="sr-only">Quantity</label>
+                                        <div className="mt-3 sm:mt-0 sm:pr-9 flex items-center gap-3">
+                                            <label htmlFor={`quantity-${index}`} className="text-xs text-gray-500 font-medium">Qty:</label>
                                             <select
                                                 id={`quantity-${index}`}
                                                 value={item.quantity}
                                                 onChange={(e) => updateQuantity(item._id || item.product, Number(e.target.value))}
-                                                className="max-w-full rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white py-1.5 text-left text-base font-medium leading-5 shadow-sm focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 sm:text-sm"
+                                                className="w-16 sm:w-20 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white py-1 px-2 text-center text-sm font-semibold shadow-xs focus:border-brand-500 focus:outline-hidden"
                                             >
                                                 {[...Array(10)].map((_, i) => (
                                                     <option key={i + 1} value={i + 1}>{i + 1}</option>
@@ -86,10 +86,10 @@ export const Cart = () => {
                                                 <button
                                                     type="button"
                                                     onClick={() => removeItem(item._id || item.product)}
-                                                    className="-m-2 p-2 inline-flex text-gray-400 hover:text-red-500 transition-colors"
+                                                    className="p-1.5 inline-flex text-gray-400 hover:text-red-500 transition-colors"
+                                                    aria-label="Remove item"
                                                 >
-                                                    <span className="sr-only">Remove</span>
-                                                    <Trash2 className="h-5 w-5" aria-hidden="true" />
+                                                    <Trash2 className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
                                                 </button>
                                             </div>
                                         </div>
@@ -110,7 +110,7 @@ export const Cart = () => {
                 </div>
 
                 {/* Order summary */}
-                <section className="mt-16 bg-white/60 dark:bg-slate-900/60 backdrop-blur-3xl rounded-[2rem] px-6 py-10 sm:p-10 lg:p-12 lg:mt-0 lg:col-span-5 lg:sticky lg:top-28 border border-gray-200/50 dark:border-white/5 shadow-2xl relative overflow-hidden">
+                <section className="mt-10 lg:mt-0 bg-white/60 dark:bg-slate-900/60 backdrop-blur-3xl rounded-[2rem] p-6 sm:p-8 lg:p-10 lg:col-span-5 lg:sticky lg:top-28 border border-gray-200/50 dark:border-white/5 shadow-2xl relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent dark:from-white/5 opacity-50 z-0 pointer-events-none"></div>
                     <div className="relative z-10">
                         <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-2">Order summary</h2>

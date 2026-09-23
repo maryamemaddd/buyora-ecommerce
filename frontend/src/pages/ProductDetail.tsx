@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { productService } from '../services/productService';
 import { Product } from '../types';
@@ -95,15 +95,15 @@ export const ProductDetail = () => {
                     <div className="flex flex-col-reverse">
                         <ScrollReveal delay={200} animation="translate-y-16 opacity-0" duration="duration-[1000ms]">
                             {images.length > 1 && (
-                                <div className="hidden mt-6 w-full max-w-2xl mx-auto sm:block lg:max-w-none">
-                                    <div className="grid grid-cols-4 gap-6">
+                                <div className="mt-4 sm:mt-6 w-full max-w-2xl mx-auto lg:max-w-none">
+                                    <div className="flex gap-3 overflow-x-auto pb-2 sm:pb-0 sm:grid sm:grid-cols-4 sm:gap-6 custom-scrollbar">
                                         {images.map((img, i) => (
                                             <button
                                                 key={i}
-                                                className={`relative h-24 bg-white dark:bg-gray-800 rounded-md flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-hidden ${activeImage === img ? 'ring-2 ring-brand-500' : 'ring-1 ring-transparent border border-gray-200 dark:border-gray-700'}`}
+                                                className={`relative flex-shrink-0 w-20 h-20 sm:w-auto sm:h-24 bg-white dark:bg-gray-800 rounded-xl sm:rounded-md flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-hidden transition-all ${activeImage === img ? 'ring-2 ring-brand-500 shadow-md scale-95' : 'ring-1 ring-transparent border border-gray-200 dark:border-gray-700'}`}
                                                 onClick={() => setActiveImage(img)}
                                             >
-                                                <span className="absolute inset-0 rounded-md overflow-hidden">
+                                                <span className="absolute inset-0 rounded-xl sm:rounded-md overflow-hidden">
                                                     <img
                                                         src={img}
                                                         onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-placehold.co/500x500/18181b/3f3f46?text=Image+Unavailable' }}
@@ -162,7 +162,7 @@ export const ProductDetail = () => {
                             </div>
 
                             <div className="mt-6 flex flex-col space-y-6">
-                                <div className="flex items-center space-x-6 bg-white/40 dark:bg-slate-900/40 p-4 rounded-2xl border border-gray-200/50 dark:border-white/5 backdrop-blur-md w-max">
+                                <div className="flex flex-wrap items-center gap-4 bg-white/40 dark:bg-slate-900/40 p-4 rounded-2xl border border-gray-200/50 dark:border-white/5 backdrop-blur-md w-full sm:w-max">
                                     <label htmlFor="quantity" className="text-base font-extrabold text-gray-900 dark:text-white uppercase tracking-wider">Quantity</label>
                                     <div className="flex items-center space-x-4">
                                         <select
@@ -193,8 +193,8 @@ export const ProductDetail = () => {
                                 </Button>
                             </div>
 
-                            <div className="mt-8 grid grid-cols-2 gap-4 pb-8">
-                                <div className="flex items-start bg-white/60 dark:bg-slate-900/60 p-6 rounded-[1.5rem] border border-gray-200/50 dark:border-white/5 backdrop-blur-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+                            <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 pb-8">
+                                <div className="flex items-start bg-white/60 dark:bg-slate-900/60 p-4 sm:p-6 rounded-[1.5rem] border border-gray-200/50 dark:border-white/5 backdrop-blur-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
                                     <div className="p-3 bg-brand-50 dark:bg-brand-900/30 rounded-2xl group-hover:scale-110 transition-transform">
                                         <Truck className="w-6 h-6 text-brand-600 dark:text-brand-400" />
                                     </div>

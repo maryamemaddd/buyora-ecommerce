@@ -194,8 +194,8 @@ export const AdminProducts = () => {
             </div>
 
             {isModalOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-gray-900/50 dark:bg-black/80 backdrop-blur-sm p-4 sm:p-0">
-                    <div className="relative w-full max-w-xl bg-white dark:bg-zinc-900 rounded-xl shadow-2xl p-6 z-10 animate-fade-in-up border border-transparent dark:border-white/10">
+                <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-gray-900/50 dark:bg-black/80 backdrop-blur-sm p-4">
+                    <div className="relative w-full max-w-xl max-h-[90vh] overflow-y-auto bg-white dark:bg-zinc-900 rounded-2xl shadow-2xl p-5 sm:p-6 z-10 animate-fade-in-up border border-transparent dark:border-white/10">
                         <div className="flex justify-between items-center mb-5 border-b border-gray-100 dark:border-white/10 pb-4">
                             <h3 className="text-xl font-bold text-gray-900 dark:text-white" id="modal-title">
                                 {editingProduct ? 'Edit Product' : 'Add New Product'}

@@ -6,8 +6,8 @@ export const Footer = () => {
     return (
         <footer className="bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <div className="col-span-1 md:col-span-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
+                    <div className="sm:col-span-2 lg:col-span-1">
                         <div className="flex items-center mb-6">
                             <ShoppingBag className="w-8 h-8 mr-2 text-brand-600 dark:text-brand-400 stroke-[2.5]" />
                             <div className="text-3xl font-extrabold tracking-tighter bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-accent-500 dark:from-brand-400 dark:to-accent-400 inline-block pb-2 leading-normal">

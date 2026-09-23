@@ -57,21 +57,19 @@ export const OrderDetail = () => {
                 &larr; Back to my orders
             </Link>
 
-            <div className="bg-white dark:bg-slate-900/40 dark:backdrop-blur-xl px-4 py-5 border-b border-gray-200 dark:border-white/10 sm:px-6 flex items-center justify-between rounded-t-xl">
+            <div className="bg-white dark:bg-slate-900/40 dark:backdrop-blur-xl px-4 py-5 border-b border-gray-200 dark:border-white/10 sm:px-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-t-xl">
                 <div>
-                    <h3 className="text-xl leading-6 font-bold text-gray-900 dark:text-white">Order #{order._id}</h3>
-                    <p className="mt-1 max-w-2xl text-sm text-gray-500 dark:text-gray-400">Placed on {new Date(order.createdAt).toLocaleDateString()}</p>
+                    <h3 className="text-lg sm:text-xl leading-6 font-bold text-gray-900 dark:text-white">Order #{order._id}</h3>
+                    <p className="mt-1 max-w-2xl text-xs sm:text-sm text-gray-500 dark:text-gray-400">Placed on {new Date(order.createdAt).toLocaleDateString()}</p>
                 </div>
-                <div className="flex flex-col items-end">
-                    <div className="flex items-center gap-2 font-medium capitalize text-gray-900 dark:text-white">
-                        {getStatusIcon()}
-                        <span className="text-lg">{order.status || 'Pending'}</span>
-                    </div>
+                <div className="flex items-center gap-2 font-medium capitalize text-gray-900 dark:text-white">
+                    {getStatusIcon()}
+                    <span className="text-base sm:text-lg">{order.status || 'Pending'}</span>
                 </div>
             </div>
 
             <div className="bg-white dark:bg-slate-900/40 dark:backdrop-blur-xl shadow-xs border border-t-0 border-gray-200 dark:border-white/10 rounded-b-xl px-4 py-5 sm:p-6 mb-8">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                         <h4 className="font-semibold text-gray-900 dark:text-white mb-4">Shipping Address</h4>
                         <div className="bg-gray-50 dark:bg-slate-800 p-4 rounded-lg text-sm text-gray-700 dark:text-gray-300">
@@ -108,33 +106,33 @@ export const OrderDetail = () => {
                     <ul className="divide-y divide-gray-200 dark:divide-white/10">
                         {order.items.map((item, index) => (
                             <li key={index} className="p-4 flex items-center bg-white dark:bg-slate-900/20 hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors">
-                                <img src={item.image} alt={item.name} className="w-16 h-16 rounded-md object-cover mr-4 border border-gray-100 dark:border-gray-700" />
-                                <div className="flex-1">
-                                    <Link to={`/products/${item.product}`} className="font-semibold text-gray-900 dark:text-white hover:underline">{item.name}</Link>
-                                    <p className="text-gray-500 dark:text-gray-400 text-sm">Qty: {item.quantity}</p>
+                                <img src={item.image} alt={item.name} className="w-14 h-14 sm:w-16 sm:h-16 rounded-md object-cover mr-3 sm:mr-4 border border-gray-100 dark:border-gray-700 flex-shrink-0" />
+                                <div className="flex-1 min-w-0 pr-2">
+                                    <Link to={`/products/${item.product}`} className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white hover:underline truncate block">{item.name}</Link>
+                                    <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">Qty: {item.quantity}</p>
                                 </div>
-                                <div className="font-bold text-gray-900 dark:text-white">
+                                <div className="font-bold text-sm sm:text-base text-gray-900 dark:text-white shrink-0">
                                     ${(item.price * item.quantity).toFixed(2)}
                                 </div>
                             </li>
                         ))}
                     </ul>
                     <div className="bg-gray-50 dark:bg-slate-800 p-4">
-                        <div className="flex justify-end pt-2 text-sm">
-                            <span className="w-48 text-gray-600 dark:text-gray-400">Subtotal</span>
-                            <span className="w-32 text-right font-medium text-gray-900 dark:text-white">${(order.totalPrice - order.taxPrice - order.shippingPrice).toFixed(2)}</span>
+                        <div className="flex justify-between sm:justify-end sm:gap-8 pt-2 text-sm">
+                            <span className="text-gray-600 dark:text-gray-400">Subtotal</span>
+                            <span className="font-medium text-gray-900 dark:text-white">${(order.totalPrice - order.taxPrice - order.shippingPrice).toFixed(2)}</span>
                         </div>
-                        <div className="flex justify-end pt-2 text-sm">
-                            <span className="w-48 text-gray-600 dark:text-gray-400">Shipping</span>
-                            <span className="w-32 text-right font-medium text-gray-900 dark:text-white">${order.shippingPrice.toFixed(2)}</span>
+                        <div className="flex justify-between sm:justify-end sm:gap-8 pt-2 text-sm">
+                            <span className="text-gray-600 dark:text-gray-400">Shipping</span>
+                            <span className="font-medium text-gray-900 dark:text-white">${order.shippingPrice.toFixed(2)}</span>
                         </div>
-                        <div className="flex justify-end pt-2 text-sm">
-                            <span className="w-48 text-gray-600 dark:text-gray-400">Tax</span>
-                            <span className="w-32 text-right font-medium text-gray-900 dark:text-white">${order.taxPrice.toFixed(2)}</span>
+                        <div className="flex justify-between sm:justify-end sm:gap-8 pt-2 text-sm">
+                            <span className="text-gray-600 dark:text-gray-400">Tax</span>
+                            <span className="font-medium text-gray-900 dark:text-white">${order.taxPrice.toFixed(2)}</span>
                         </div>
-                        <div className="flex justify-end pt-4 pb-2 border-t mt-4 border-gray-200 dark:border-white/10 font-bold text-lg">
-                            <span className="w-48 text-gray-900 dark:text-white">Total</span>
-                            <span className="w-32 text-right text-gray-900 dark:text-white">${order.totalPrice.toFixed(2)}</span>
+                        <div className="flex justify-between sm:justify-end sm:gap-8 pt-4 pb-2 border-t mt-4 border-gray-200 dark:border-white/10 font-bold text-base sm:text-lg">
+                            <span className="text-gray-900 dark:text-white">Total</span>
+                            <span className="text-gray-900 dark:text-white">${order.totalPrice.toFixed(2)}</span>
                         </div>
                     </div>
                 </div>

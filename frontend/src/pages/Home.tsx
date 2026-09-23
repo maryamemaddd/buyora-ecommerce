@@ -52,7 +52,7 @@ export const Home = () => {
         <div className="flex flex-col space-y-16 lg:space-y-24 overflow-hidden pb-12">
             {/* Hero Section */}
             <ScrollReveal animation="translate-y-10 opacity-0" duration="duration-[1200ms]">
-                <section className="relative rounded-[2.5rem] overflow-hidden bg-gray-900 h-[65vh] min-h-[450px] shadow-2xl mx-2 mt-4 group border border-gray-200 dark:border-gray-800">
+                <section className="relative rounded-[2rem] sm:rounded-[2.5rem] overflow-hidden bg-gray-900 h-[65vh] min-h-[400px] sm:min-h-[480px] lg:min-h-[550px] shadow-2xl mx-1 sm:mx-2 mt-2 sm:mt-4 group border border-gray-200 dark:border-gray-800">
                     <Swiper
                         modules={[Autoplay, EffectFade, Pagination]}
                         effect="fade"
@@ -88,7 +88,7 @@ export const Home = () => {
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1.2, ease: "easeOut" }}
-                            className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-white tracking-tighter mb-6 drop-shadow-2xl"
+                            className="text-3xl sm:text-5xl lg:text-7xl font-extrabold text-white tracking-tighter mb-4 sm:mb-6 drop-shadow-2xl"
                         >
                             Elevate Your Space
                         </motion.h1>
@@ -96,7 +96,7 @@ export const Home = () => {
                             initial={{ y: 50, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
                             transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
-                            className="text-base md:text-lg lg:text-2xl text-white mb-10 max-w-3xl font-light drop-shadow-md"
+                            className="text-sm sm:text-lg lg:text-2xl text-white mb-6 sm:mb-10 max-w-3xl font-light drop-shadow-md px-2"
                         >
                             Discover a curated collection of ultra-premium goods designed to redefine modern elegance.
                         </motion.p>
@@ -108,9 +108,9 @@ export const Home = () => {
                         >
                             <Link
                                 to="/products"
-                                className="group/btn inline-flex items-center px-6 py-3 md:px-10 md:py-5 text-base md:text-lg font-bold text-gray-900 dark:text-gray-900 bg-white/90 dark:bg-white/90 backdrop-blur-md rounded-full hover:bg-white dark:hover:bg-white transition-all duration-500 shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.6)] hover:scale-105 hover:-translate-y-1"
+                                className="group/btn inline-flex items-center px-6 py-3.5 sm:px-10 sm:py-5 text-sm sm:text-base md:text-lg font-bold text-gray-900 dark:text-gray-900 bg-white/95 dark:bg-white/95 backdrop-blur-md rounded-full hover:bg-white dark:hover:bg-white transition-all duration-500 shadow-[0_0_40px_rgba(255,255,255,0.3)] hover:shadow-[0_0_60px_rgba(255,255,255,0.6)] hover:scale-105"
                             >
-                                Explore Collection <ArrowRight className="ml-3 w-6 h-6 transition-transform group-hover/btn:translate-x-2" />
+                                Explore Collection <ArrowRight className="ml-2.5 w-5 h-5 sm:w-6 sm:h-6 transition-transform group-hover/btn:translate-x-2" />
                             </Link>
                         </motion.div>
                     </div>
@@ -201,14 +201,14 @@ export const Home = () => {
                                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/30 to-transparent group-hover:from-brand-900/90 group-hover:via-indigo-900/40 transition-all duration-700" />
 
                                 {/* Center Title (Moves up on hover) */}
-                                <div className="absolute inset-0 flex flex-col items-center justify-center transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-8">
-                                    <span className="text-white text-xl md:text-2xl font-extrabold uppercase tracking-widest drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">{cat.name}</span>
+                                <div className="absolute inset-0 flex flex-col items-center justify-center transition-transform duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] sm:group-hover:-translate-y-8">
+                                    <span className="text-white text-lg sm:text-2xl font-extrabold uppercase tracking-widest drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]">{cat.name}</span>
                                 </div>
 
-                                {/* Shop Now Button (Fades and rises from bottom) */}
-                                <div className="absolute inset-x-0 bottom-8 px-6 flex flex-col items-center justify-end opacity-0 transform translate-y-12 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] delay-75">
-                                    <div className="bg-white text-gray-900 px-8 py-3.5 rounded-full font-bold shadow-[0_0_30px_rgba(255,255,255,0.3)] hover:scale-105 active:scale-95 transition-transform flex items-center justify-center gap-2 group/btn2">
-                                        Shop Now <ArrowRight className="w-5 h-5 transition-transform group-hover/btn2:translate-x-1" />
+                                {/* Shop Now Button (Always accessible on mobile, animated on hover for desktop) */}
+                                <div className="absolute inset-x-0 bottom-4 sm:bottom-8 px-4 sm:px-6 flex flex-col items-center justify-end opacity-100 sm:opacity-0 sm:translate-y-12 sm:group-hover:opacity-100 sm:group-hover:translate-y-0 transition-all duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] delay-75">
+                                    <div className="bg-white text-gray-900 px-4 py-2 sm:px-8 sm:py-3.5 rounded-full font-bold shadow-lg hover:scale-105 active:scale-95 transition-transform flex items-center justify-center gap-1.5 sm:gap-2 group/btn2 text-xs sm:text-sm">
+                                        Shop Now <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 transition-transform group-hover/btn2:translate-x-1" />
                                     </div>
                                 </div>
                             </Link>
@@ -247,7 +247,7 @@ export const Home = () => {
             {/* Newsletter Subscription */}
             <section className="px-4 pb-16">
                 <ScrollReveal animation="scale-95 opacity-0" duration="duration-[1000ms]">
-                    <div className="relative rounded-[3rem] overflow-hidden bg-white/40 dark:bg-slate-900 border border-white dark:border-white/5 backdrop-blur-2xl p-8 md:p-16 lg:p-20 text-center shadow-xl dark:shadow-2xl group/newsletter transition-all duration-700">
+                    <div className="relative rounded-[2rem] sm:rounded-[3rem] overflow-hidden bg-white/40 dark:bg-slate-900 border border-white dark:border-white/5 backdrop-blur-2xl p-6 sm:p-12 md:p-16 lg:p-20 text-center shadow-xl dark:shadow-2xl group/newsletter transition-all duration-700">
                         {/* Advanced Animated Aurora Background */}
                         <div className="absolute inset-0 z-0 overflow-hidden">
                             <div className="absolute top-[-50%] left-[-20%] w-[70vw] h-[70vw] bg-brand-600/30 dark:bg-brand-500/20 rounded-full mix-blend-screen filter blur-[100px] opacity-70 blob"></div>
@@ -260,10 +260,10 @@ export const Home = () => {
                         </div>
 
                         <div className="relative z-10 flex flex-col items-center justify-center">
-                            <h2 className="text-4xl sm:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-400 tracking-tighter mb-4 text-center pb-2 leading-normal">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-400 tracking-tighter mb-4 text-center pb-2 leading-normal">
                                 Join the <span className="text-brand-600 dark:text-brand-400">Buyora</span> Club
                             </h2>
-                            <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-700 dark:text-gray-300 font-medium mb-12 relative z-10 leading-relaxed">
+                            <p className="max-w-2xl mx-auto text-sm sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 font-medium mb-8 sm:mb-12 relative z-10 leading-relaxed px-2">
                                 Subscribe to receive early VIP access to new sophisticated collections, exclusive discounts, and style inspiration.
                             </p>
 

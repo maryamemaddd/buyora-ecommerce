@@ -50,9 +50,9 @@ export const StaticPage = () => {
                         Through our global logistics network, Buyora ensures your items arrive safely and on time. Enter your specific tracking number below to see real-time updates directly from our carrier partners (including DHL, FedEx Signature, and UPS Premier).
                     </motion.p>
 
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="flex flex-col sm:flex-row gap-4 p-4 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-[2rem] border border-white dark:border-gray-700/50 shadow-xl">
-                        <input type="text" placeholder="Tracking Number (e.g., BUY-123456)" className="w-full px-6 py-4 bg-transparent focus:ring-0 outline-none text-gray-900 dark:text-white font-medium text-lg placeholder-gray-400" disabled />
-                        <button className="px-10 py-4 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-2xl transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)] flex items-center justify-center opacity-70 cursor-not-allowed flex-shrink-0">
+                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="flex flex-col sm:flex-row gap-3 sm:gap-4 p-3 sm:p-4 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl rounded-[2rem] border border-white dark:border-gray-700/50 shadow-xl">
+                        <input type="text" placeholder="Tracking Number (e.g., BUY-123456)" className="w-full px-4 sm:px-6 py-3 sm:py-4 bg-transparent focus:ring-0 outline-none text-gray-900 dark:text-white font-medium text-base sm:text-lg placeholder-gray-400" disabled />
+                        <button className="w-full sm:w-auto px-6 sm:px-10 py-3 sm:py-4 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-2xl transition-all shadow-[0_0_20px_rgba(139,92,246,0.3)] flex items-center justify-center opacity-70 cursor-not-allowed flex-shrink-0 text-sm sm:text-base">
                             Track Package <ArrowRight className="w-5 h-5 ml-2" />
                         </button>
                     </motion.div>

@@ -17,7 +17,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
     return (
         <div
-            className="group perspective-1000 w-full h-[450px] cursor-pointer"
+            className="group perspective-1000 w-full h-[420px] sm:h-[450px] cursor-pointer"
             onClick={() => navigate(`/products/${product._id}`)}
         >
             <div className="relative w-full h-full transition-transform duration-[800ms] transform-style-3d group-hover:rotate-y-180">
@@ -42,14 +42,29 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                         </div>
                     </div>
 
-                    <div className="p-5 flex flex-col flex-grow z-10 bg-white/80 dark:bg-transparent">
+                    <div className="p-4 sm:p-5 flex flex-col flex-grow z-10 bg-white/80 dark:bg-transparent">
                         <span className="text-xs text-brand-600 dark:text-brand-400 font-bold tracking-widest uppercase mb-1">{product.category}</span>
-                        <h3 className="text-xl font-bold text-gray-900 dark:text-slate-200 tracking-tight line-clamp-1 mb-auto">{product.name}</h3>
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-slate-200 tracking-tight line-clamp-1 mb-auto">{product.name}</h3>
 
-                        <div className="mt-4 flex items-center justify-between">
-                            <span className="text-2xl font-black text-gray-900 dark:text-slate-100 tracking-tighter">${Number(product.price).toFixed(2)}</span>
-                            {/* Visual cue that it flips */}
-                            <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">Hover for details &rarr;</span>
+                        <div className="mt-3 sm:mt-4 flex items-center justify-between">
+                            <span className="text-xl sm:text-2xl font-black text-gray-900 dark:text-slate-100 tracking-tighter">${Number(product.price).toFixed(2)}</span>
+                            <div className="flex items-center gap-2">
+                                <button
+                                    type="button"
+                                    disabled={product.stock === 0 || loading}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        e.preventDefault();
+                                        addToCart(product._id);
+                                    }}
+                                    className="p-2 sm:p-2.5 rounded-full bg-brand-600 hover:bg-brand-500 text-white shadow-md hover:scale-110 active:scale-95 transition-all disabled:opacity-50"
+                                    title="Add to Cart"
+                                    aria-label="Add to Cart"
+                                >
+                                    <ShoppingCart className="w-4 h-4" />
+                                </button>
+                                <span className="hidden sm:inline text-xs text-gray-400 dark:text-gray-500 font-medium">Details &rarr;</span>
+                            </div>
                         </div>
                     </div>
                 </div>

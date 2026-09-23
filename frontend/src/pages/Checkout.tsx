@@ -150,7 +150,7 @@ export const Checkout = () => {
             <div className="flex flex-col lg:flex-row gap-10 relative z-10">
 
                 {/* Forms Area */}
-                <div className="flex-1 bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl p-8 rounded-[2rem] border border-gray-200/50 dark:border-white/5 shadow-2xl relative overflow-hidden">
+                <div className="flex-1 bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl p-5 sm:p-8 rounded-[2rem] border border-gray-200/50 dark:border-white/5 shadow-2xl relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-br from-white/30 to-transparent dark:from-white/5 opacity-50 z-0 pointer-events-none"></div>
                     <div className="relative z-10">
                         {/* Progress Indicator */}
@@ -162,14 +162,14 @@ export const Checkout = () => {
 
                         {step === 1 && (
                             <div className="space-y-6">
-                                <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Shipping Details</h2>
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="md:col-span-2">
+                                <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-gray-900 dark:text-white">Shipping Details</h2>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div className="sm:col-span-2">
                                         <Input label="Street Address" name="street" value={shippingAddress.street} onChange={handleShippingChange} required />
                                     </div>
                                     <Input label="City" name="city" value={shippingAddress.city} onChange={handleShippingChange} required />
                                     <Input label="Postal Code" name="postalCode" value={shippingAddress.postalCode} onChange={handleShippingChange} required />
-                                    <div className="md:col-span-2">
+                                    <div className="sm:col-span-2">
                                         <Input label="Country" name="country" value={shippingAddress.country} onChange={handleShippingChange} required />
                                     </div>
                                 </div>
@@ -258,7 +258,7 @@ export const Checkout = () => {
 
                 {/* Dynamic Order Summary Sidebar */}
                 <div className="lg:w-96 shrink-0 relative z-10">
-                    <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-3xl rounded-[2rem] p-8 border border-gray-200/50 dark:border-white/5 shadow-2xl lg:sticky lg:top-28">
+                    <div className="bg-white/60 dark:bg-slate-900/60 backdrop-blur-3xl rounded-[2rem] p-5 sm:p-8 border border-gray-200/50 dark:border-white/5 shadow-2xl lg:sticky lg:top-28">
                         <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white mb-6 pr-2 tracking-tight">Order Summary</h2>
                         <ul className="space-y-4 mb-6 max-h-[300px] overflow-y-auto pr-4 scrollbar-thin scrollbar-thumb-gray-200 dark:scrollbar-thumb-gray-700">
                             {cartItems.map((item, idx) => (
