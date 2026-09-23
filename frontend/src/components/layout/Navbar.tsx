@@ -51,42 +51,19 @@ export const Navbar = () => {
         setIsOpen(false);
     }, [location.pathname]);
 
-    // Completely lock document scroll when mobile navbar is open
+    // Lock document scroll when mobile navbar is open
     useEffect(() => {
         if (!isOpen) return;
 
         const originalOverflowHtml = document.documentElement.style.overflow;
         const originalOverflowBody = document.body.style.overflow;
-        const originalTouchAction = document.body.style.touchAction;
 
         document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
-        document.body.style.touchAction = 'none';
-
-        // Block any touchmove or wheel event that occurs OUTSIDE the drawer
-        const handleTouchMove = (e: TouchEvent) => {
-            if (drawerRef.current && drawerRef.current.contains(e.target as Node)) {
-                return; // allow smooth scrolling inside the drawer
-            }
-            e.preventDefault();
-        };
-
-        const handleWheel = (e: WheelEvent) => {
-            if (drawerRef.current && drawerRef.current.contains(e.target as Node)) {
-                return; // allow smooth scrolling inside the drawer
-            }
-            e.preventDefault();
-        };
-
-        window.addEventListener('touchmove', handleTouchMove, { passive: false });
-        window.addEventListener('wheel', handleWheel, { passive: false });
 
         return () => {
             document.documentElement.style.overflow = originalOverflowHtml;
             document.body.style.overflow = originalOverflowBody;
-            document.body.style.touchAction = originalTouchAction;
-            window.removeEventListener('touchmove', handleTouchMove);
-            window.removeEventListener('wheel', handleWheel);
         };
     }, [isOpen]);
 
@@ -183,28 +160,23 @@ export const Navbar = () => {
                 <>
                     {/* Backdrop: Clicking anywhere outside closes the drawer */}
                     <div
-                        className={`fixed inset-0 bg-black/60 backdrop-blur-xs z-[80] lg:hidden overscroll-none touch-none transition-opacity duration-300 cursor-pointer ${
+                        className={`fixed inset-0 bg-black/60 backdrop-blur-xs z-[150] lg:hidden transition-opacity duration-300 cursor-pointer ${
                             isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                         }`}
                         onClick={() => setIsOpen(false)}
-                        onTouchEnd={(e) => {
-                            if (e.target === e.currentTarget) {
-                                setIsOpen(false);
-                            }
-                        }}
                     />
 
-                    {/* Side Drawer: Height is full screen, Width is half screen, Beautiful header with dedicated close button */}
+                    {/* Side Drawer: Above navbar and backdrop with z-[200] */}
                     <aside
                         ref={drawerRef}
-                        className={`fixed top-0 right-0 h-screen w-3/5 sm:w-1/2 min-w-[270px] max-w-sm bg-white/98 dark:bg-zinc-950/98 backdrop-blur-2xl border-l border-gray-200/80 dark:border-white/10 shadow-2xl z-[90] lg:hidden flex flex-col transition-transform duration-300 ease-in-out overscroll-contain ${
+                        className={`fixed top-0 right-0 h-screen w-3/5 sm:w-1/2 min-w-[270px] max-w-sm bg-white dark:bg-zinc-950 border-l border-gray-200 dark:border-white/10 shadow-2xl z-[200] lg:hidden flex flex-col transition-transform duration-300 ease-in-out overscroll-contain ${
                             isOpen ? 'translate-x-0' : 'translate-x-full'
                         }`}
                         style={{ touchAction: 'pan-y' }}
                         aria-label="Mobile navigation"
                     >
-                        {/* Drawer Header with Brand & Dedicated Close Button */}
-                        <div className="h-16 px-4 flex items-center justify-between border-b border-gray-100 dark:border-white/10 shrink-0 bg-white/70 dark:bg-zinc-900/60 backdrop-blur-md">
+                        {/* Drawer Header with Brand & Prominent Dedicated Close Button */}
+                        <div className="h-16 px-4 flex items-center justify-between border-b border-gray-100 dark:border-white/10 shrink-0 bg-white dark:bg-zinc-950">
                             <div className="flex items-center gap-2 cursor-pointer" onClick={() => { navigate('/'); setIsOpen(false); }}>
                                 <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
                                     <ShoppingBag className="w-4 h-4 stroke-[2.5]" />
@@ -216,10 +188,11 @@ export const Navbar = () => {
 
                             {/* Dedicated Close Button */}
                             <button
+                                type="button"
                                 onClick={() => setIsOpen(false)}
-                                className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-200 flex items-center justify-center transition-all duration-200 active:scale-90 shadow-xs focus:outline-none"
+                                className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-gray-800 dark:text-white flex items-center justify-center transition-all duration-200 active:scale-90 shadow-sm border border-gray-200/50 dark:border-white/10 cursor-pointer focus:outline-none"
                                 aria-label="Close menu"
-                                title="Close"
+                                title="Close menu"
                             >
                                 <X className="w-5 h-5 stroke-[2.5]" />
                             </button>
