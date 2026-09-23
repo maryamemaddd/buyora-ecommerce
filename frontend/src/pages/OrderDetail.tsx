@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { orderService } from '../services/orderService';
+import { productService } from '../services/productService';
 import { Order } from '../types';
 import toast from 'react-hot-toast';
 import { CheckCircle2, Clock, Truck, Package, XCircle } from 'lucide-react';
@@ -14,8 +15,53 @@ export const OrderDetail = () => {
         const fetchOrder = async () => {
             try {
                 const res = await orderService.getOrderById(id!);
-                // Handle varying backend response formats implicitly
-                setOrder(res.data || res);
+                const orderData = res.data || res;
+
+                // Ensure items have images by enriching product details if image is missing
+                if (orderData && Array.isArray(orderData.items)) {
+                    const enrichedItems = await Promise.all(
+                        orderData.items.map(async (item: any) => {
+                            if (item.image) return item;
+
+                            // 1. If product is already an object with image or images
+                            if (item.product && typeof item.product === 'object') {
+                                const img = item.product.image || item.product.images?.[0]?.url;
+                                if (img) return { ...item, image: img };
+                            }
+
+                            // 2. If product is an ID string, fetch product by ID
+                            const prodId = typeof item.product === 'string' ? item.product : item.product?._id;
+                            if (prodId) {
+                                try {
+                                    const prodRes = await productService.getProductById(prodId);
+                                    const prod = prodRes.data || prodRes;
+                                    const img = prod?.image || prod?.images?.[0]?.url;
+                                    if (img) return { ...item, image: img };
+                                } catch {
+                                    // continue to search fallback
+                                }
+                            }
+
+                            // 3. Fallback: search product by name
+                            if (item.name) {
+                                try {
+                                    const searchRes = await productService.getProducts({ search: item.name });
+                                    const productsList = searchRes.data || searchRes;
+                                    const found = Array.isArray(productsList) ? productsList[0] : null;
+                                    const img = found?.image || found?.images?.[0]?.url;
+                                    if (img) return { ...item, image: img };
+                                } catch {
+                                    // UI fallback will handle it
+                                }
+                            }
+
+                            return item;
+                        })
+                    );
+                    orderData.items = enrichedItems;
+                }
+
+                setOrder(orderData);
             } catch (error) {
                 toast.error('Order not found');
             } finally {
@@ -104,18 +150,33 @@ export const OrderDetail = () => {
                 <h4 className="font-semibold text-gray-900 dark:text-white mt-8 mb-4">Order Items</h4>
                 <div className="border border-gray-200 dark:border-white/10 rounded-lg overflow-hidden">
                     <ul className="divide-y divide-gray-200 dark:divide-white/10">
-                        {order.items.map((item, index) => (
-                            <li key={index} className="p-4 flex items-center bg-white dark:bg-slate-900/20 hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors">
-                                <img src={item.image} alt={item.name} className="w-14 h-14 sm:w-16 sm:h-16 rounded-md object-cover mr-3 sm:mr-4 border border-gray-100 dark:border-gray-700 flex-shrink-0" />
-                                <div className="flex-1 min-w-0 pr-2">
-                                    <Link to={`/products/${item.product}`} className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white hover:underline truncate block">{item.name}</Link>
-                                    <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">Qty: {item.quantity}</p>
-                                </div>
-                                <div className="font-bold text-sm sm:text-base text-gray-900 dark:text-white shrink-0">
-                                    ${(item.price * item.quantity).toFixed(2)}
-                                </div>
-                            </li>
-                        ))}
+                        {order.items.map((item, index) => {
+                            const prodObj = item.product as any;
+                            const productId = typeof prodObj === 'object' && prodObj !== null ? prodObj._id : prodObj;
+                            const fallbackImg = `https://placehold.co/400x400/1e293b/ffffff?text=${encodeURIComponent(item.name || 'Product')}`;
+                            return (
+                                <li key={index} className="p-4 flex items-center bg-white dark:bg-slate-900/20 hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors">
+                                    <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-lg bg-gray-100 dark:bg-slate-800 border border-gray-100 dark:border-gray-700 mr-3 sm:mr-4 flex-shrink-0 overflow-hidden flex items-center justify-center">
+                                        <img
+                                            src={item.image || fallbackImg}
+                                            alt={item.name}
+                                            onError={(e) => {
+                                                e.currentTarget.onerror = null;
+                                                e.currentTarget.src = fallbackImg;
+                                            }}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    </div>
+                                    <div className="flex-1 min-w-0 pr-2">
+                                        <Link to={`/products/${productId || ''}`} className="font-semibold text-sm sm:text-base text-gray-900 dark:text-white hover:underline truncate block">{item.name}</Link>
+                                        <p className="text-gray-500 dark:text-gray-400 text-xs sm:text-sm">Qty: {item.quantity}</p>
+                                    </div>
+                                    <div className="font-bold text-sm sm:text-base text-gray-900 dark:text-white shrink-0">
+                                        ${(item.price * item.quantity).toFixed(2)}
+                                    </div>
+                                </li>
+                            );
+                        })}
                     </ul>
                     <div className="bg-gray-50 dark:bg-slate-800 p-4">
                         <div className="flex justify-between sm:justify-end sm:gap-8 pt-2 text-sm">

@@ -34,11 +34,11 @@ export interface Product {
 
 export interface CartItem {
     _id?: string;
-    product: string; // Product ID
+    product: any;
     name: string;
     price: number;
     quantity: number;
-    image: string;
+    image?: string;
 }
 
 export interface Order {
