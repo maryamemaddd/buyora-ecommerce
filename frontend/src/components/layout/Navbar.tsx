@@ -31,6 +31,18 @@ export const Navbar = () => {
         setIsOpen(false);
     }, [location.pathname]);
 
+    // Lock body scroll when mobile navbar is open
+    React.useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+        return () => {
+            document.body.style.overflow = '';
+        };
+    }, [isOpen]);
+
     return (
         <nav className="glass-nav sticky top-0 z-50 transition-all duration-500 border-b border-gray-200/50 dark:border-white/10 w-full bg-white/95 dark:bg-zinc-950/95 shadow-lg backdrop-blur-2xl">
             <div className="w-full max-w-[1250px] mx-auto h-20 px-4 sm:px-6 lg:px-8 flex justify-between items-center transition-all">
@@ -122,7 +134,7 @@ export const Navbar = () => {
             {/* Mobile / Tablet Side Drawer & Backdrop */}
             {/* Backdrop */}
             <div
-                className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300 ${
+                className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden overscroll-none touch-none transition-opacity duration-300 ${
                     isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                 }`}
                 onClick={() => setIsOpen(false)}
@@ -130,12 +142,12 @@ export const Navbar = () => {
 
             {/* Side Drawer (covers half screen from right, full vertical length) */}
             <aside
-                className={`fixed top-0 right-0 h-screen w-1/2 sm:w-1/2 min-w-[250px] max-w-sm bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl border-l border-gray-200/80 dark:border-white/10 shadow-2xl z-40 lg:hidden flex flex-col pt-20 transition-transform duration-300 ease-in-out ${
+                className={`fixed top-0 right-0 h-screen w-1/2 sm:w-1/2 min-w-[250px] max-w-sm bg-white/95 dark:bg-zinc-950/95 backdrop-blur-2xl border-l border-gray-200/80 dark:border-white/10 shadow-2xl z-40 lg:hidden flex flex-col pt-20 transition-transform duration-300 ease-in-out overscroll-contain ${
                     isOpen ? 'translate-x-0' : 'translate-x-full'
                 }`}
                 aria-label="Mobile navigation"
             >
-                <div className="flex-1 overflow-y-auto px-4 py-4 space-y-1">
+                <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 space-y-1">
                     <Link
                         to="/"
                         onClick={() => setIsOpen(false)}
