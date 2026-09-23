@@ -1,7 +1,24 @@
 import React, { useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ShoppingCart, Menu, X, User, Sun, Moon, ShoppingBag } from 'lucide-react';
+import {
+    ShoppingCart,
+    Menu,
+    X,
+    User,
+    Sun,
+    Moon,
+    ShoppingBag,
+    Home,
+    Package,
+    ChevronRight,
+    HelpCircle,
+    Truck,
+    RefreshCcw,
+    ShieldCheck,
+    FileText,
+    LogOut
+} from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
 import { useCart } from '../../context/CartContext';
 import { useTheme } from '../../context/ThemeContext';
@@ -164,97 +181,215 @@ export const Navbar = () => {
             {/* Mobile / Tablet Side Drawer & Backdrop via Portal */}
             {typeof document !== 'undefined' && createPortal(
                 <>
-                    {/* Backdrop */}
+                    {/* Backdrop: Clicking anywhere outside closes the drawer */}
                     <div
-                        className={`fixed inset-0 bg-black/50 backdrop-blur-sm z-[80] lg:hidden overscroll-none touch-none transition-opacity duration-300 ${
+                        className={`fixed inset-0 bg-black/60 backdrop-blur-xs z-[80] lg:hidden overscroll-none touch-none transition-opacity duration-300 cursor-pointer ${
                             isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
                         }`}
                         onClick={() => setIsOpen(false)}
+                        onTouchEnd={(e) => {
+                            if (e.target === e.currentTarget) {
+                                setIsOpen(false);
+                            }
+                        }}
                     />
 
-                    {/* Side Drawer (covers half screen from right, full vertical length) */}
+                    {/* Side Drawer: Height is full screen, Width is half screen, Beautiful header with dedicated close button */}
                     <aside
                         ref={drawerRef}
-                        className={`fixed top-0 right-0 h-screen w-1/2 sm:w-1/2 min-w-[260px] max-w-sm bg-white/98 dark:bg-zinc-950/98 backdrop-blur-2xl border-l border-gray-200/80 dark:border-white/10 shadow-2xl z-[90] lg:hidden flex flex-col pt-20 transition-transform duration-300 ease-in-out overscroll-contain ${
+                        className={`fixed top-0 right-0 h-screen w-3/5 sm:w-1/2 min-w-[270px] max-w-sm bg-white/98 dark:bg-zinc-950/98 backdrop-blur-2xl border-l border-gray-200/80 dark:border-white/10 shadow-2xl z-[90] lg:hidden flex flex-col transition-transform duration-300 ease-in-out overscroll-contain ${
                             isOpen ? 'translate-x-0' : 'translate-x-full'
                         }`}
                         style={{ touchAction: 'pan-y' }}
                         aria-label="Mobile navigation"
                     >
+                        {/* Drawer Header with Brand & Dedicated Close Button */}
+                        <div className="h-16 px-4 flex items-center justify-between border-b border-gray-100 dark:border-white/10 shrink-0 bg-white/70 dark:bg-zinc-900/60 backdrop-blur-md">
+                            <div className="flex items-center gap-2 cursor-pointer" onClick={() => { navigate('/'); setIsOpen(false); }}>
+                                <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-brand-600 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-brand-500/20">
+                                    <ShoppingBag className="w-4 h-4 stroke-[2.5]" />
+                                </div>
+                                <span className="font-extrabold text-lg tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-accent-500 dark:from-brand-400 dark:to-accent-400">
+                                    Buyora
+                                </span>
+                            </div>
+
+                            {/* Dedicated Close Button */}
+                            <button
+                                onClick={() => setIsOpen(false)}
+                                className="w-9 h-9 rounded-full bg-gray-100 hover:bg-gray-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-gray-700 dark:text-gray-200 flex items-center justify-center transition-all duration-200 active:scale-90 shadow-xs focus:outline-none"
+                                aria-label="Close menu"
+                                title="Close"
+                            >
+                                <X className="w-5 h-5 stroke-[2.5]" />
+                            </button>
+                        </div>
+
+                        {/* Scrollable Drawer Body */}
                         <div
-                            className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 space-y-1"
+                            className="flex-1 overflow-y-auto overscroll-contain px-3 py-3 space-y-3"
                             style={{ touchAction: 'pan-y', WebkitOverflowScrolling: 'touch' }}
                         >
-                            <Link
-                                to="/"
-                                onClick={() => setIsOpen(false)}
-                                className={`block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-colors ${
-                                    location.pathname === '/'
-                                        ? 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400'
-                                        : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900'
-                                }`}
-                            >
-                                Home
-                            </Link>
-                            <Link
-                                to="/products"
-                                onClick={() => setIsOpen(false)}
-                                className={`block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold transition-colors ${
-                                    location.pathname === '/products'
-                                        ? 'bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400'
-                                        : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900'
-                                }`}
-                            >
-                                Shop
-                            </Link>
-
-                            {/* Support Section */}
-                            <div className="border-t border-gray-100 dark:border-white/10 my-2 pt-2">
-                                <span className="block px-3.5 py-1 text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
-                                    Support
-                                </span>
-                                <div className="space-y-0.5 mt-1">
-                                    <Link to="/help" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Help Center</Link>
-                                    <Link to="/track-order" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Track Order</Link>
-                                    <Link to="/returns" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Returns & Refunds</Link>
-                                    <Link to="/privacy" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Privacy Policy</Link>
-                                    <Link to="/terms" onClick={() => setIsOpen(false)} className="block px-3.5 py-1.5 text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-lg">Terms of Service</Link>
+                            {/* User Profile Card (if Authenticated) */}
+                            {isAuthenticated && (
+                                <div className="p-3 rounded-2xl bg-gradient-to-r from-indigo-50/90 to-purple-50/90 dark:from-indigo-950/40 dark:to-purple-950/40 border border-indigo-100/80 dark:border-indigo-500/20 flex items-center gap-3 shadow-xs">
+                                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-brand-600 to-purple-600 text-white font-bold flex items-center justify-center shrink-0 shadow-sm text-sm">
+                                        {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                                    </div>
+                                    <div className="min-w-0 flex-1">
+                                        <p className="text-xs font-bold text-gray-900 dark:text-white truncate">
+                                            {user?.name || 'Customer'}
+                                        </p>
+                                        <p className="text-[11px] text-gray-500 dark:text-gray-400 truncate">
+                                            {user?.email}
+                                        </p>
+                                    </div>
                                 </div>
-                            </div>
+                            )}
 
-                            {/* Account Section */}
-                            <div className="border-t border-gray-100 dark:border-white/10 my-2 pt-2">
-                                {isAuthenticated ? (
-                                    <div className="space-y-1">
+                            {/* Main Navigation Links */}
+                            <div className="space-y-1">
+                                <Link
+                                    to="/"
+                                    onClick={() => setIsOpen(false)}
+                                    className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                                        location.pathname === '/'
+                                            ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 font-bold border border-brand-500/20'
+                                            : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900'
+                                    }`}
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <Home className="w-4 h-4 text-brand-500" />
+                                        <span>Home</span>
+                                    </div>
+                                    <ChevronRight className="w-4 h-4 text-gray-400 opacity-60" />
+                                </Link>
+
+                                <Link
+                                    to="/products"
+                                    onClick={() => setIsOpen(false)}
+                                    className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                                        location.pathname === '/products'
+                                            ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 font-bold border border-brand-500/20'
+                                            : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900'
+                                    }`}
+                                >
+                                    <div className="flex items-center gap-3">
+                                        <ShoppingBag className="w-4 h-4 text-indigo-500" />
+                                        <span>Shop</span>
+                                    </div>
+                                    <ChevronRight className="w-4 h-4 text-gray-400 opacity-60" />
+                                </Link>
+
+                                {isAuthenticated && (
+                                    <>
+                                        <Link
+                                            to="/orders"
+                                            onClick={() => setIsOpen(false)}
+                                            className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                                                location.pathname === '/orders'
+                                                    ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 font-bold border border-brand-500/20'
+                                                    : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900'
+                                            }`}
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <Package className="w-4 h-4 text-blue-500" />
+                                                <span>My Orders</span>
+                                            </div>
+                                            <ChevronRight className="w-4 h-4 text-gray-400 opacity-60" />
+                                        </Link>
+
+                                        <Link
+                                            to="/profile"
+                                            onClick={() => setIsOpen(false)}
+                                            className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                                                location.pathname === '/profile'
+                                                    ? 'bg-brand-500/10 text-brand-600 dark:text-brand-400 font-bold border border-brand-500/20'
+                                                    : 'text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900'
+                                            }`}
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <User className="w-4 h-4 text-emerald-500" />
+                                                <span>Profile</span>
+                                            </div>
+                                            <ChevronRight className="w-4 h-4 text-gray-400 opacity-60" />
+                                        </Link>
+
                                         {user?.role === 'admin' && (
-                                            <Link to="/admin" onClick={() => setIsOpen(false)} className="block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950/30">
-                                                Admin Dashboard
+                                            <Link
+                                                to="/admin"
+                                                onClick={() => setIsOpen(false)}
+                                                className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                                                    location.pathname === '/admin'
+                                                        ? 'bg-purple-500/10 text-purple-600 dark:text-purple-400 font-bold border border-purple-500/20'
+                                                        : 'text-purple-600 dark:text-purple-400 hover:bg-purple-50 dark:hover:bg-purple-950/30'
+                                                }`}
+                                            >
+                                                <div className="flex items-center gap-3">
+                                                    <ShieldCheck className="w-4 h-4 text-purple-500" />
+                                                    <span>Admin Dashboard</span>
+                                                </div>
+                                                <ChevronRight className="w-4 h-4 text-gray-400 opacity-60" />
                                             </Link>
                                         )}
-                                        <Link to="/orders" onClick={() => setIsOpen(false)} className="block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900">
-                                            My Orders
-                                        </Link>
-                                        <Link to="/profile" onClick={() => setIsOpen(false)} className="block px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-zinc-900">
-                                            Profile ({user?.name || 'User'})
-                                        </Link>
-                                        <button
-                                            onClick={() => { setIsOpen(false); handleLogout(); }}
-                                            className="block w-full text-left px-3.5 py-2.5 rounded-xl text-sm sm:text-base font-semibold text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
-                                        >
-                                            Logout
-                                        </button>
-                                    </div>
-                                ) : (
-                                    <div className="pt-2 space-y-2">
-                                        <Link to="/login" onClick={() => setIsOpen(false)} className="block w-full text-center px-4 py-2.5 text-sm font-bold text-gray-800 dark:text-gray-100 bg-gray-100 dark:bg-zinc-800 rounded-xl hover:bg-gray-200 transition-colors">
-                                            Sign In
-                                        </Link>
-                                        <Link to="/register" onClick={() => setIsOpen(false)} className="block w-full text-center px-4 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-indigo-500 via-purple-500 to-indigo-600 rounded-xl shadow-md hover:shadow-lg transition-all">
-                                            Register
-                                        </Link>
-                                    </div>
+                                    </>
                                 )}
                             </div>
+
+                            {/* Help & Support Section */}
+                            <div className="border-t border-gray-100 dark:border-white/10 pt-3">
+                                <span className="block px-3.5 py-1 text-[11px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider">
+                                    Help & Support
+                                </span>
+                                <div className="space-y-0.5 mt-1">
+                                    <Link to="/help" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3.5 py-2 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-xl transition-colors">
+                                        <HelpCircle className="w-3.5 h-3.5 text-gray-400" />
+                                        <span>Help Center</span>
+                                    </Link>
+                                    <Link to="/track-order" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3.5 py-2 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-xl transition-colors">
+                                        <Truck className="w-3.5 h-3.5 text-gray-400" />
+                                        <span>Track Order</span>
+                                    </Link>
+                                    <Link to="/returns" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3.5 py-2 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-xl transition-colors">
+                                        <RefreshCcw className="w-3.5 h-3.5 text-gray-400" />
+                                        <span>Returns & Refunds</span>
+                                    </Link>
+                                    <Link to="/privacy" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-3.5 py-2 text-xs font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-zinc-900 rounded-xl transition-colors">
+                                        <FileText className="w-3.5 h-3.5 text-gray-400" />
+                                        <span>Privacy Policy</span>
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Footer Section (Logout or Sign In / Register) */}
+                        <div className="border-t border-gray-100 dark:border-white/10 p-4 bg-gray-50/50 dark:bg-zinc-900/40 shrink-0">
+                            {isAuthenticated ? (
+                                <button
+                                    onClick={() => { setIsOpen(false); handleLogout(); }}
+                                    className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-sm font-bold text-red-600 bg-red-50 hover:bg-red-100 dark:bg-red-950/30 dark:hover:bg-red-950/50 rounded-xl transition-colors"
+                                >
+                                    <LogOut className="w-4 h-4" />
+                                    <span>Logout</span>
+                                </button>
+                            ) : (
+                                <div className="space-y-2">
+                                    <Link
+                                        to="/login"
+                                        onClick={() => setIsOpen(false)}
+                                        className="block w-full text-center px-4 py-2.5 text-sm font-bold text-gray-800 dark:text-gray-100 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700 rounded-xl hover:bg-gray-50 dark:hover:bg-zinc-700 transition-colors shadow-xs"
+                                    >
+                                        Sign In
+                                    </Link>
+                                    <Link
+                                        to="/register"
+                                        onClick={() => setIsOpen(false)}
+                                        className="block w-full text-center px-4 py-2.5 text-sm font-bold text-white bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 rounded-xl shadow-md hover:shadow-lg transition-all"
+                                    >
+                                        Create Account
+                                    </Link>
+                                </div>
+                            )}
                         </div>
                     </aside>
                 </>,
